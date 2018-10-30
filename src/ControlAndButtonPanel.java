@@ -1,37 +1,47 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+import javax.swing.SpringLayout;
 
 public class ControlAndButtonPanel extends JPanel {
 
 	ActionMap actionMap = new ActionMap();
+	SpringLayout springLayout = new SpringLayout();
 
 	JButton restartButton;
 	JLabel infoShortcutKey;
 
 	ControlAndButtonPanel() {
 
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		setLayout(springLayout);		
 
 		restartButton = new JButton("Restart");
-		add(restartButton);
-
-		restartButton.setAlignmentX(this.CENTER_ALIGNMENT);
-
+		add(restartButton);	
+		
+		
 		infoShortcutKey = new JLabel("CTRL + R");
 		infoShortcutKey.setForeground(Color.BLACK);
 		infoShortcutKey.setFont(new Font("TimesRoman", Font.BOLD, 12));
 		add(infoShortcutKey);
-
-		infoShortcutKey.setAlignmentX(this.CENTER_ALIGNMENT);
+		
+		springLayout.putConstraint(SpringLayout.WEST, restartButton, 15, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.NORTH, restartButton, 20, SpringLayout.NORTH, this);
+		
+		springLayout.putConstraint(SpringLayout.WEST, infoShortcutKey, 29, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.NORTH, infoShortcutKey, 50, SpringLayout.NORTH, this);
+		
+		this.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 0, Color.BLACK));
 
 		restartButton.setActionMap(actionMap);
 
