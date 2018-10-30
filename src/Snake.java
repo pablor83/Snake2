@@ -1,17 +1,20 @@
 import java.awt.Rectangle;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class Snake {
 
 	private int x;
 	private int y;
 
-	private int slength = 16;
+	private static int slength = 5;
 
 	private int colorSnake = 0500100;
 
-	private List<Rectangle> listSnake = new LinkedList<>();
+	private static List<Rectangle> listSnake = new LinkedList<>();
+
+	private Random randomStartPosition = new Random();
 
 	public void addHeadRectList() {
 
@@ -19,11 +22,35 @@ public class Snake {
 
 	}
 
-	public void setColorSnake(int c) {
+	public void setStartPosition() {
 
-		colorSnake = c;
+		int[] x = new int[16];
+		int[] y = new int[16];
+
+		int snakeStep = 0;
+
+		for (int i = 0; i < 16; i++) {
+
+			snakeStep += 25;
+
+			x[i] = snakeStep;
+			y[i] = snakeStep;
+
+		}
+
+		int randomX = randomStartPosition.nextInt(16);
+		int randomy = randomStartPosition.nextInt(16);
+
+		this.x = x[randomX];
+		this.y = y[randomy];
+
 	}
 
+//	public void setColorSnake(int c) {
+//
+//		colorSnake = c;
+//	}
+//
 	public void setXstep(int x) {
 
 		this.x += x;
@@ -34,29 +61,40 @@ public class Snake {
 		this.y += y;
 	}
 
-	public void setX(int x) {
-
-		this.x = x;
-	}
-
-	public void setY(int y) {
-
-		this.y = y;
-	}
-
-	public int getXposition() {
-
-		return x;
-	}
-
-	public int getYposition() {
-
-		return y;
-	}
-
-	public int getListSnakeSize() {
+//
+//	public void setX(int x) {
+//
+//		this.x = x;
+//	}
+//
+//	public void setY(int y) {
+//
+//		this.y = y;
+//	}
+//
+//	public int getXposition() {
+//
+//		return x;
+//	}
+//
+//	public int getYposition() {
+//
+//		return y;
+//	}
+//
+	public static int getListSnakeSize() {
 
 		return listSnake.size();
+	}
+
+	public static int getSnakeLength() {
+
+		return slength;
+	}
+
+	public static List<Rectangle> getRectSnakeList() {
+
+		return listSnake;
 	}
 
 	public Rectangle getHeadRectCoordinates() {
@@ -84,5 +122,10 @@ public class Snake {
 		}
 
 		return collision;
+	}
+
+	public static void removeItemFromListSnake(int number) {
+
+		listSnake.remove(number);
 	}
 }

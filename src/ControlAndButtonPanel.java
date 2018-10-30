@@ -22,25 +22,49 @@ public class ControlAndButtonPanel extends JPanel {
 	JButton restartButton;
 	JLabel infoShortcutKey;
 
+	private boolean xRight = false;
+	private boolean xLeft = false;
+	private boolean yUp = false;
+	private boolean yDown = false;
+
+	public boolean isItRightDirectionIsOn() {
+
+		return xRight;
+	}
+
+	public boolean isItLeftDirectionIsOn() {
+
+		return xLeft;
+	}
+
+	public boolean isItUpDirectionIsOn() {
+
+		return yUp;
+	}
+
+	public boolean isItDownDirectionIsOn() {
+
+		return yDown;
+	}
+
 	ControlAndButtonPanel() {
 
-		setLayout(springLayout);		
+		setLayout(springLayout);
 
 		restartButton = new JButton("Restart");
-		add(restartButton);	
-		
-		
+		add(restartButton);
+
 		infoShortcutKey = new JLabel("CTRL + R");
 		infoShortcutKey.setForeground(Color.BLACK);
 		infoShortcutKey.setFont(new Font("TimesRoman", Font.BOLD, 12));
 		add(infoShortcutKey);
-		
+
 		springLayout.putConstraint(SpringLayout.WEST, restartButton, 15, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.NORTH, restartButton, 20, SpringLayout.NORTH, this);
-		
+
 		springLayout.putConstraint(SpringLayout.WEST, infoShortcutKey, 29, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.NORTH, infoShortcutKey, 50, SpringLayout.NORTH, this);
-		
+
 		this.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 0, Color.BLACK));
 
 		restartButton.setActionMap(actionMap);
@@ -84,6 +108,11 @@ public class ControlAndButtonPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
+			xRight = true;
+
+			xLeft = false;
+			yUp = false;
+			yDown = false;
 		}
 	};
 
@@ -92,6 +121,11 @@ public class ControlAndButtonPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
+			xLeft = true;
+
+			xRight = false;
+			yUp = false;
+			yDown = false;
 		}
 	};
 
@@ -99,6 +133,12 @@ public class ControlAndButtonPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+
+			yUp = true;
+
+			yDown = false;
+			xRight = false;
+			xLeft = false;
 
 		}
 
@@ -109,6 +149,11 @@ public class ControlAndButtonPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
+			yDown = true;
+
+			yUp = false;
+			xRight = false;
+			xLeft = false;
 		}
 	};
 
