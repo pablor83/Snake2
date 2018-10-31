@@ -1,7 +1,7 @@
 package game;
+
 import java.awt.Color;
 import java.awt.Font;
-
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -9,17 +9,15 @@ import javax.swing.SpringLayout;
 
 public class Subtitles extends JPanel {
 
-	
-
 	Subtitles() {
 
 		JLabel gameName, infoStart, infoPause, infoPoints, infoLives, infoLevel, infoColorSnake;
 		SpringLayout springLayout = new SpringLayout();
-		
+
 		setLayout(springLayout);
 
 		setBorder(BorderFactory.createMatteBorder(4, 0, 4, 4, Color.BLACK));
-		
+
 		gameName = new JLabel("W¹¿");
 		gameName.setForeground(Color.GREEN);
 		gameName.setFont(new Font("TimesRoman", Font.BOLD, 12));

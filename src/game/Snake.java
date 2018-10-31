@@ -1,4 +1,5 @@
 package game;
+
 import java.awt.Rectangle;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,13 +10,19 @@ public class Snake {
 	private int x;
 	private int y;
 
-	private static int slength = 5;
+	private int slength = 3;
 
 	private int colorSnake = 0500100;
 
-	private static List<Rectangle> listSnake = new LinkedList<>();
+	private List<Rectangle> listSnake = new LinkedList<>();
 
 	private Random randomStartPosition = new Random();
+
+	Snake() {
+
+		setStartPosition();
+		addHeadRectList();
+	}
 
 	public void addHeadRectList() {
 
@@ -28,7 +35,7 @@ public class Snake {
 		int[] x = new int[16];
 		int[] y = new int[16];
 
-		int snakeStep = 0;
+		int snakeStep = 25;
 
 		for (int i = 0; i < 16; i++) {
 
@@ -83,17 +90,17 @@ public class Snake {
 //		return y;
 //	}
 //
-	public static int getListSnakeSize() {
+	public int getListSnakeSize() {
 
 		return listSnake.size();
 	}
 
-	public static int getSnakeLength() {
+	public int getSnakeLength() {
 
 		return slength;
 	}
 
-	public static List<Rectangle> getRectSnakeList() {
+	public List<Rectangle> getRectSnakeList() {
 
 		return listSnake;
 	}
@@ -125,8 +132,34 @@ public class Snake {
 		return collision;
 	}
 
-	public static void removeItemFromListSnake(int number) {
+	public void removeItemFromListSnake(int number) {
 
 		listSnake.remove(number);
+	}
+
+	public void goRight() {
+
+		setXstep(25);
+		addHeadRectList();
+
+	}
+
+	public void goLeft() {
+		setXstep(-25);
+		addHeadRectList();
+
+	}
+
+	public void goUp() {
+		setYstep(-25);
+		addHeadRectList();
+
+	}
+
+	public void goDown() {
+
+		setYstep(25);
+		addHeadRectList();
+
 	}
 }

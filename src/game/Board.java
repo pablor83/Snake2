@@ -1,4 +1,5 @@
 package game;
+
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -7,15 +8,13 @@ import javax.swing.JFrame;
 
 public class Board extends JFrame {
 
-	ControlAndButtonPanel controlAndButtonPanel = new ControlAndButtonPanel();
-	private Snake snake = new Snake();
-	
+	private ControlAndButtonPanel controlAndButtonPanel = new ControlAndButtonPanel();
+	private GraphicDesign graphicDesign = new GraphicDesign();
 
 	Board() {
-		
-		
-		GraphicDesign graphicDesign = new GraphicDesign();
+
 		Subtitles subtitles = new Subtitles();
+
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
 		setSize(540, 625);
@@ -66,25 +65,21 @@ public class Board extends JFrame {
 
 		Board board = new Board();
 
-//		board.graphicDesign.setRandomPointFood();
-//		board.graphicDesign.addFood();
-//		board.snake.setStartPosition();
-		board.snake.setStartPosition();
-		board.snake.addHeadRectList();
-
 		while (true) {
 
 			if (board.controlAndButtonPanel.isItRightDirectionIsOn() == true)
-				board.goRight();
+				board.graphicDesign.startMovingRight();
 
 			if (board.controlAndButtonPanel.isItLeftDirectionIsOn() == true)
-				board.goLeft();
+				board.graphicDesign.startMovingLeft();
 
 			if (board.controlAndButtonPanel.isItUpDirectionIsOn() == true)
-				board.goUp();
+				board.graphicDesign.startMovingUp();
 
 			if (board.controlAndButtonPanel.isItDownDirectionIsOn() == true)
-				board.goDown();
+				board.graphicDesign.startMovingDown();
+
+			board.repaint();
 
 			try {
 				Thread.sleep(250);
@@ -93,34 +88,6 @@ public class Board extends JFrame {
 			}
 
 		}
-
-	}
-
-	public void goRight() {
-
-		snake.setXstep(25);
-		snake.addHeadRectList();
-		repaint();
-
-	}
-
-	public void goLeft() {
-		snake.setXstep(-25);
-		snake.addHeadRectList();
-		repaint();
-	}
-
-	public void goUp() {
-		snake.setYstep(-25);
-		snake.addHeadRectList();
-		repaint();
-	}
-
-	public void goDown() {
-
-		snake.setYstep(25);
-		snake.addHeadRectList();
-		repaint();
 
 	}
 
