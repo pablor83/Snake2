@@ -1,3 +1,4 @@
+package game;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -16,11 +17,7 @@ import javax.swing.SpringLayout;
 
 public class ControlAndButtonPanel extends JPanel {
 
-	ActionMap actionMap = new ActionMap();
-	SpringLayout springLayout = new SpringLayout();
-
 	JButton restartButton;
-	JLabel infoShortcutKey;
 
 	private boolean xRight = false;
 	private boolean xLeft = false;
@@ -48,6 +45,10 @@ public class ControlAndButtonPanel extends JPanel {
 	}
 
 	ControlAndButtonPanel() {
+
+		JLabel infoShortcutKey;
+		SpringLayout springLayout = new SpringLayout();
+		ActionMap actionMap = new ActionMap();
 
 		setLayout(springLayout);
 

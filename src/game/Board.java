@@ -1,3 +1,4 @@
+package game;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -6,13 +7,16 @@ import javax.swing.JFrame;
 
 public class Board extends JFrame {
 
-	private ControlAndButtonPanel controlAndButtonPanel = new ControlAndButtonPanel();
-	private GraphicDesign graphicDesign = new GraphicDesign();
-	private Subtitles subtitles = new Subtitles();
+	ControlAndButtonPanel controlAndButtonPanel = new ControlAndButtonPanel();
 	private Snake snake = new Snake();
-	private GridBagConstraints gridBagConstraints = new GridBagConstraints();
+	
 
 	Board() {
+		
+		
+		GraphicDesign graphicDesign = new GraphicDesign();
+		Subtitles subtitles = new Subtitles();
+		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
 		setSize(540, 625);
 		setTitle("Snake");

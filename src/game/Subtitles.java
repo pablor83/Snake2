@@ -1,3 +1,4 @@
+package game;
 import java.awt.Color;
 import java.awt.Font;
 
@@ -8,11 +9,13 @@ import javax.swing.SpringLayout;
 
 public class Subtitles extends JPanel {
 
-	private JLabel gameName, infoStart, infoPause, infoPoints, infoLives, infoLevel, infoColorSnake;
-	SpringLayout springLayout = new SpringLayout();
+	
 
 	Subtitles() {
 
+		JLabel gameName, infoStart, infoPause, infoPoints, infoLives, infoLevel, infoColorSnake;
+		SpringLayout springLayout = new SpringLayout();
+		
 		setLayout(springLayout);
 
 		setBorder(BorderFactory.createMatteBorder(4, 0, 4, 4, Color.BLACK));
