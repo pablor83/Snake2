@@ -43,6 +43,8 @@ public class GraphicDesign extends JPanel {
 	public void paint(Graphics g) {
 
 		Graphics2D g2d = (Graphics2D) g;
+		
+		g2d.drawString("X: "+snake.getXposition()+" Y: "+snake.getYposition(), 50, 50);
 
 		for (Rectangle rectSnakeList : snake.getRectSnakeList()) {
 
@@ -55,12 +57,12 @@ public class GraphicDesign extends JPanel {
 			snake.removeItemFromListSnake(0);
 
 		g2d.setColor(Color.lightGray);
-		g2d.setStroke(new BasicStroke(20));
-		g2d.drawRect(getWidth() / 2 - (500 / 2), getHeight() / 2 - (434 / 2), 500, 434);
+		g2d.setStroke(new BasicStroke(18));
+		g2d.drawRect(getWidth() / 2 - 250, getHeight() / 2 - 225, 500, 447);
 
 		g2d.setColor(Color.black);
 		g2d.setStroke(new BasicStroke(4));
-		g2d.drawRect(getWidth() / 2 - (476 / 2), getHeight() / 2 - (420 / 2), 476, 420);
+		g2d.drawRect(getWidth() / 2 - 240, getHeight() / 2 - 218, 481, 431);
 
 	}
 

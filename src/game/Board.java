@@ -17,11 +17,11 @@ public class Board extends JFrame {
 
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
-		setSize(540, 625);
+		setSize(550, 640);
 		setTitle("Snake");
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setMinimumSize(new Dimension(540, 625));
+		setMinimumSize(new Dimension(550, 640));
 		setLayout(new GridBagLayout());
 		setVisible(true);
 
@@ -31,7 +31,7 @@ public class Board extends JFrame {
 
 		gridBagConstraints.ipadx = 100;
 		gridBagConstraints.ipady = 100;
-		gridBagConstraints.insets = new Insets(7, 0, 0, 0);
+		gridBagConstraints.insets = new Insets(1, 3, 0, 0);
 
 		add(controlAndButtonPanel, gridBagConstraints);
 
@@ -42,20 +42,20 @@ public class Board extends JFrame {
 		gridBagConstraints.ipadx = 20;
 		gridBagConstraints.ipady = 100;
 
-		gridBagConstraints.insets = new Insets(7, 0, 0, 0);
+		gridBagConstraints.insets = new Insets(1, 0, 0, 3);
 
 		add(subtitles, gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 1;
-		gridBagConstraints.ipadx = 500;
-		gridBagConstraints.ipady = 460;
+		gridBagConstraints.ipadx = 515;
+		gridBagConstraints.ipady = 470;
 
 		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
 
 		gridBagConstraints.weighty = 0;
-		gridBagConstraints.insets = new Insets(2, 0, 0, 0);
+		gridBagConstraints.insets = new Insets(6, 0, 0, 0);
 
 		add(graphicDesign, gridBagConstraints);
 

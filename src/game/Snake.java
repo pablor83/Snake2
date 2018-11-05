@@ -80,16 +80,16 @@ public class Snake {
 //		this.y = y;
 //	}
 //
-//	public int getXposition() {
-//
-//		return x;
-//	}
-//
-//	public int getYposition() {
-//
-//		return y;
-//	}
-//
+	public int getXposition() {
+
+		return x;
+	}
+
+	public int getYposition() {
+
+		return y;
+	}
+
 	public int getListSnakeSize() {
 
 		return listSnake.size();
