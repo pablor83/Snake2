@@ -70,15 +70,15 @@ public class Board extends JFrame {
 			if (board.controlAndButtonPanel.isItRightDirectionIsOn() == true)
 				board.graphicDesign.startMovingRight();
 
-			if (board.controlAndButtonPanel.isItLeftDirectionIsOn() == true)
+			else if (board.controlAndButtonPanel.isItLeftDirectionIsOn() == true)
 				board.graphicDesign.startMovingLeft();
 
-			if (board.controlAndButtonPanel.isItUpDirectionIsOn() == true)
+			else if (board.controlAndButtonPanel.isItUpDirectionIsOn() == true)
 				board.graphicDesign.startMovingUp();
 
-			if (board.controlAndButtonPanel.isItDownDirectionIsOn() == true)
+			else if (board.controlAndButtonPanel.isItDownDirectionIsOn() == true)
 				board.graphicDesign.startMovingDown();
-
+			
 			board.repaint();
 
 			try {

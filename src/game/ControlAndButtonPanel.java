@@ -22,6 +22,26 @@ public class ControlAndButtonPanel extends JPanel {
 	private boolean yUp = false;
 	private boolean yDown = false;
 
+	public void setRightDirection(boolean b) {
+
+		xRight = b;
+	}
+
+	public void setLeftDirection(boolean b) {
+
+		xLeft = b;
+	}
+
+	public void setUpDirection(boolean b) {
+
+		yUp = b;
+	}
+
+	public void setDownDirection(boolean b) {
+
+		yDown = b;
+	}
+
 	public boolean isItRightDirectionIsOn() {
 
 		return xRight;
@@ -107,9 +127,11 @@ public class ControlAndButtonPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			xRight = true;
+			if (xLeft != true) {
+				xRight = true;
+				xLeft = false;
+			}
 
-			xLeft = false;
 			yUp = false;
 			yDown = false;
 		}
@@ -120,9 +142,11 @@ public class ControlAndButtonPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			xLeft = true;
+			if (xRight != true) {
+				xLeft = true;
+				xRight = false;
+			}
 
-			xRight = false;
 			yUp = false;
 			yDown = false;
 		}
@@ -133,9 +157,11 @@ public class ControlAndButtonPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			yUp = true;
+			if (yDown != true) {
+				yUp = true;
+				yDown = false;
+			}
 
-			yDown = false;
 			xRight = false;
 			xLeft = false;
 
@@ -148,9 +174,11 @@ public class ControlAndButtonPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			yDown = true;
+			if (yUp != true) {
+				yDown = true;
+				yUp = false;
+			}
 
-			yUp = false;
 			xRight = false;
 			xLeft = false;
 		}

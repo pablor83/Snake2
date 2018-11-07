@@ -10,7 +10,7 @@ public class Snake {
 	private int x;
 	private int y;
 
-	private int slength = 3;
+	private int slength = 4;
 
 	private int colorSnake = 0500100;
 
@@ -52,6 +52,11 @@ public class Snake {
 		this.x = x[randomX];
 		this.y = y[randomy];
 
+	}
+	
+	public void setLength(int length) {
+		
+		slength = length;
 	}
 
 //	public void setColorSnake(int c) {
@@ -115,21 +120,23 @@ public class Snake {
 		return rectHead;
 	}
 
-	public boolean tailCollisionDetection() {
+	public boolean snakeCollisionDetection() {
 
-		boolean collision = false;
+		boolean snakeCollision = false;
 
-		if (listSnake.size() > 16) {
+		if (listSnake.size() > 4) {
 
-			for (int i = 0; i < listSnake.size() - 16; i++) {
+			for (int i = 0; i < listSnake.size() - 3; i++) {
 				if (listSnake.get(listSnake.size() - 1).intersects(listSnake.get(i)))
-
-					collision = true;
-
+					
+					snakeCollision = true;
 			}
 		}
 
-		return collision;
+		else if (x > 475 || x < 25 || y < 25 || y > 425)			
+			snakeCollision = true;
+
+		return snakeCollision;
 	}
 
 	public void removeItemFromListSnake(int number) {
@@ -137,29 +144,81 @@ public class Snake {
 		listSnake.remove(number);
 	}
 
+	public void constantSnakeLength() {
+
+		if (listSnake.size() > slength && (x<475 || x > 25 || y > 25 || y < 425))
+			listSnake.remove(0);
+	}
+
 	public void goRight() {
 
-		setXstep(25);
-		addHeadRectList();
+		if (x == 475) {
 
+			setXstep(1);
+		}
+
+		else if (x > 475 || snakeCollisionDetection() == true)
+			setXstep(0);
+
+		else {
+			setXstep(25);
+			addHeadRectList();
+		}
 	}
 
 	public void goLeft() {
-		setXstep(-25);
-		addHeadRectList();
+
+		if (x == 25) {
+
+			setXstep(-1);
+		}
+
+		else if (x < 25 || snakeCollisionDetection() == true)
+			setXstep(0);
+
+		else {
+			setXstep(-25);
+			addHeadRectList();
+		}
 
 	}
 
 	public void goUp() {
-		setYstep(-25);
-		addHeadRectList();
+
+		if (y == 25) {
+
+			setYstep(-1);
+		}
+
+		else if (y < 25 || snakeCollisionDetection() == true)
+			setYstep(0);
+
+		else {
+			setYstep(-25);
+			addHeadRectList();
+		}
 
 	}
 
 	public void goDown() {
 
-		setYstep(25);
-		addHeadRectList();
+		if (y == 425) {
 
+			setYstep(1);
+		}
+
+		else if (y > 425 || snakeCollisionDetection() == true)
+			setYstep(0);
+
+		else {
+			setYstep(25);
+			addHeadRectList();
+		}
+
+	}
+	
+	public void killSnake(int i) {
+			
+				listSnake.remove(i);
 	}
 }
