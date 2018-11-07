@@ -53,6 +53,9 @@ public class GraphicDesign extends JPanel {
 		if (snake.snakeCollisionDetection() == true) {
 			setColorSnake = 2;
 			
+			snake.killSnake();
+			System.out.println(snake.getListSnakeSize());
+			
 		}
 
 		for (Rectangle rectSnakeList : snake.getRectSnakeList()) {

@@ -217,8 +217,9 @@ public class Snake {
 
 	}
 	
-	public void killSnake(int i) {
-			
-				listSnake.remove(i);
+	public void killSnake() {
+		
+		if(listSnake.size()>0)
+			listSnake.remove(0);
 	}
 }
