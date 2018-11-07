@@ -2,6 +2,7 @@ package game;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -18,10 +19,15 @@ public class GraphicDesign extends JPanel {
 
 		repaint();
 	}
+	
+	public Snake snake() {
+		
+		return snake;
+	}
 
 	public void startMovingRight() {
 
-		snake.goRight();;
+		snake.goRight();
 	}
 
 	public void startMovingLeft() {
@@ -48,23 +54,34 @@ public class GraphicDesign extends JPanel {
 
 		g2d.drawString("X: " + snake.getXposition() + " Y: " + snake.getYposition(), 50, 50);
 		
-		snake.constantSnakeLength();
+//		snake.constantSnakeLength();
 		
-		if (snake.snakeCollisionDetection() == true) {
+		if (snake.snakeCollisionDetection() == true || snake.getListSnakeSize() == 0) {	
+			
+			int x = snake.getXposition();
+			int y = snake.getYposition();
+			
+			int[] xP = { x + 10, x + 20, x + 40, x + 30, x + 50, x + 30, x + 40, x + 20, x + 10, x, x - 20, x - 10,
+					x - 30, x - 10, x - 20, x };
+			int[] yP = { y - 20, y, y - 20, y + 10, y + 20, y + 30, y + 60, y + 40, y + 60, y + 40, y + 60, y + 30,
+					y + 20, y + 10, y - 20, y };
+			
 			setColorSnake = 2;
-			
-			snake.killSnake();
-			System.out.println(snake.getListSnakeSize());
-			
+
+			GradientPaint gp = new GradientPaint(x, y, Color.yellow, x + 40, y + 60, Color.RED);
+			g2d.setPaint(gp);
+			g2d.fillPolygon(xP, yP, xP.length);
+
 		}
 
 		for (Rectangle rectSnakeList : snake.getRectSnakeList()) {
 
 			g2d.setColor(colorSnake[setColorSnake]);
 
-			g2d.fill(rectSnakeList);
+			g2d.fill(rectSnakeList);			
+			
 		}
-
+		
 		
 
 		g2d.setColor(Color.lightGray);

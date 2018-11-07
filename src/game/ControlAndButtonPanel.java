@@ -61,6 +61,14 @@ public class ControlAndButtonPanel extends JPanel {
 
 		return yDown;
 	}
+	
+	public void stopDirections() {
+		
+		xRight = false;
+		xLeft = false;
+		yUp = false;
+		yDown = false;
+	}
 
 	ControlAndButtonPanel() {
 

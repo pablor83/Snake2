@@ -6,10 +6,14 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import javax.swing.JFrame;
 
+import sun.security.x509.IssuerAlternativeNameExtension;
+
 public class Board extends JFrame {
 
 	private ControlAndButtonPanel controlAndButtonPanel = new ControlAndButtonPanel();
 	private GraphicDesign graphicDesign = new GraphicDesign();
+	
+	private boolean isSnakeBeenRemove = false;
 
 	Board() {
 
@@ -58,7 +62,6 @@ public class Board extends JFrame {
 		gridBagConstraints.insets = new Insets(6, 0, 0, 0);
 
 		add(graphicDesign, gridBagConstraints);
-
 	}
 
 	public static void main(String[] argh) {
@@ -66,6 +69,8 @@ public class Board extends JFrame {
 		Board board = new Board();
 
 		while (true) {
+			
+			
 
 			if (board.controlAndButtonPanel.isItRightDirectionIsOn() == true)
 				board.graphicDesign.startMovingRight();
@@ -77,7 +82,31 @@ public class Board extends JFrame {
 				board.graphicDesign.startMovingUp();
 
 			else if (board.controlAndButtonPanel.isItDownDirectionIsOn() == true)
-				board.graphicDesign.startMovingDown();
+				board.graphicDesign.startMovingDown();	
+			
+			if(board.graphicDesign.snake().snakeCollisionDetection() == true || board.isSnakeBeenRemove == true) {
+				board.controlAndButtonPanel.stopDirections();
+				board.isSnakeBeenRemove = true;
+				
+				for(int i = 0; i<board.graphicDesign.snake().getListSnakeSize(); i++) {
+					
+					board.graphicDesign.snake().killSnake();
+					board.repaint();
+					
+					try {
+						Thread.sleep(200);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				if(board.graphicDesign.snake().getListSnakeSize() == 0)
+				board.isSnakeBeenRemove = false;	
+				
+			}
+				
+			board.graphicDesign.snake().constantSnakeLength();
 			
 			board.repaint();
 

@@ -10,7 +10,7 @@ public class Snake {
 	private int x;
 	private int y;
 
-	private int slength = 4;
+	private int slength = 7;
 
 	private int colorSnake = 0500100;
 
@@ -124,7 +124,7 @@ public class Snake {
 
 		boolean snakeCollision = false;
 
-		if (listSnake.size() > 4) {
+		if (listSnake.size() > 4 && (x < 475 || x > 25 || y > 25 || y < 425)) {
 
 			for (int i = 0; i < listSnake.size() - 3; i++) {
 				if (listSnake.get(listSnake.size() - 1).intersects(listSnake.get(i)))
@@ -133,8 +133,11 @@ public class Snake {
 			}
 		}
 
-		else if (x > 475 || x < 25 || y < 25 || y > 425)			
+		if (x > 475 || x < 25 || y < 25 || y > 425) {			
 			snakeCollision = true;
+		}
+		
+		
 
 		return snakeCollision;
 	}
@@ -157,7 +160,7 @@ public class Snake {
 			setXstep(1);
 		}
 
-		else if (x > 475 || snakeCollisionDetection() == true)
+		else if (x > 475)
 			setXstep(0);
 
 		else {
@@ -173,7 +176,7 @@ public class Snake {
 			setXstep(-1);
 		}
 
-		else if (x < 25 || snakeCollisionDetection() == true)
+		else if (x < 25)
 			setXstep(0);
 
 		else {
@@ -190,7 +193,7 @@ public class Snake {
 			setYstep(-1);
 		}
 
-		else if (y < 25 || snakeCollisionDetection() == true)
+		else if (y < 25)
 			setYstep(0);
 
 		else {
@@ -207,7 +210,7 @@ public class Snake {
 			setYstep(1);
 		}
 
-		else if (y > 425 || snakeCollisionDetection() == true)
+		else if (y > 425)
 			setYstep(0);
 
 		else {
@@ -221,5 +224,7 @@ public class Snake {
 		
 		if(listSnake.size()>0)
 			listSnake.remove(0);
+
+		
 	}
 }
