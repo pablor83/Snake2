@@ -21,11 +21,11 @@ public class Board extends JFrame {
 
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
-		setSize(550, 640);
+		setSize(552, 641);
 		setTitle("Snake");
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setMinimumSize(new Dimension(550, 640));
+		setMinimumSize(new Dimension(552, 641));
 		setLayout(new GridBagLayout());
 		setVisible(true);
 
@@ -35,7 +35,7 @@ public class Board extends JFrame {
 
 		gridBagConstraints.ipadx = 100;
 		gridBagConstraints.ipady = 100;
-		gridBagConstraints.insets = new Insets(1, 3, 0, 0);
+		gridBagConstraints.insets = new Insets(4, 0, 0, 0);
 
 		add(controlAndButtonPanel, gridBagConstraints);
 
@@ -46,7 +46,7 @@ public class Board extends JFrame {
 		gridBagConstraints.ipadx = 20;
 		gridBagConstraints.ipady = 100;
 
-		gridBagConstraints.insets = new Insets(1, 0, 0, 3);
+		gridBagConstraints.insets = new Insets(4, 0, 0, 0);
 
 		add(subtitles, gridBagConstraints);
 
@@ -54,7 +54,7 @@ public class Board extends JFrame {
 		gridBagConstraints.gridx = 0;
 		gridBagConstraints.gridy = 1;
 		gridBagConstraints.ipadx = 515;
-		gridBagConstraints.ipady = 470;
+		gridBagConstraints.ipady = 474;
 
 		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
 
@@ -94,7 +94,7 @@ public class Board extends JFrame {
 					board.repaint();
 					
 					try {
-						Thread.sleep(200);
+						Thread.sleep(500);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
