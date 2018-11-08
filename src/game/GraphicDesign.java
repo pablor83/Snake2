@@ -58,6 +58,8 @@ public class GraphicDesign extends JPanel {
 		
 		if (snake.snakeCollisionDetection() == true || snake.getListSnakeSize() == 0) {	
 			
+			setColorSnake = 2;
+			
 			int x = snake.getXposition();
 			int y = snake.getYposition();
 			
@@ -66,11 +68,12 @@ public class GraphicDesign extends JPanel {
 			int[] yP = { y - 20, y, y - 20, y + 10, y + 20, y + 30, y + 60, y + 40, y + 60, y + 40, y + 60, y + 30,
 					y + 20, y + 10, y - 20, y };
 			
-			setColorSnake = 2;
-
+			
+			if(snake.getListSnakeSize() == 0) {
 			GradientPaint gp = new GradientPaint(x, y, Color.yellow, x + 40, y + 60, Color.RED);
 			g2d.setPaint(gp);
 			g2d.fillPolygon(xP, yP, xP.length);
+			}
 
 		}
 
@@ -85,12 +88,12 @@ public class GraphicDesign extends JPanel {
 		
 
 		g2d.setColor(Color.lightGray);
-		g2d.setStroke(new BasicStroke(18));
-		g2d.drawRect(getWidth() / 2 - 250, getHeight() / 2 - 225, 500, 447);
+		g2d.setStroke(new BasicStroke(34));
+		g2d.drawRect(getWidth() / 2 - 252, getHeight() / 2 - 230, 504, 454);
 
 		g2d.setColor(Color.black);
 		g2d.setStroke(new BasicStroke(4));
-		g2d.drawRect(getWidth() / 2 - 240, getHeight() / 2 - 218, 481, 431);
+		g2d.drawRect(getWidth() / 2 - 240, getHeight() / 2 - 221, 481, 432);
 
 		g2d.setColor(Color.red);
 //		g2d.drawLine(getWidth() / 2 + 241, getHeight() / 2 - 214, getWidth() / 2 + 241, getHeight() / 2 + 209);
