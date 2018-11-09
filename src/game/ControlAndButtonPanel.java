@@ -15,7 +15,7 @@ import javax.swing.SpringLayout;
 
 public class ControlAndButtonPanel extends JPanel {
 
-	JButton restartButton;
+	private JButton restartButton;
 
 	private boolean xRight = false;
 	private boolean xLeft = false;

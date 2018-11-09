@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Food {
 
-	int xFood, yFood;
+	private int xFood, yFood;
 
 	private List<Rectangle> foodList = new LinkedList<>();
 

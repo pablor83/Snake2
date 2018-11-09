@@ -11,17 +11,17 @@ import javax.swing.JPanel;
 public class GraphicDesign extends JPanel {
 
 	private Snake snake = new Snake();
-	
-	Color[] colorSnake = {new Color(000, 200, 000), Color.BLUE, Color.red}; 
-	int setColorSnake = 0;
+
+	private Color[] colorSnake = { new Color(000, 200, 000), Color.BLUE, Color.red };
+	private int setColorSnake = 0;
 
 	GraphicDesign() {
 
 		repaint();
 	}
-	
+
 	public Snake snake() {
-		
+
 		return snake;
 	}
 
@@ -48,31 +48,41 @@ public class GraphicDesign extends JPanel {
 
 	}
 
+	public void setColorSnake(int i) {
+
+		setColorSnake = i;
+	}
+
 	public void paint(Graphics g) {
 
 		Graphics2D g2d = (Graphics2D) g;
 
 		g2d.drawString("X: " + snake.getXposition() + " Y: " + snake.getYposition(), 50, 50);
-		
-//		snake.constantSnakeLength();
-		
-		if (snake.snakeCollisionDetection() == true || snake.getListSnakeSize() == 0) {	
-			
-			setColorSnake = 2;
-			
+
+		if (snake.snakeCollisionDetection() == true || snake.getListSnakeSize() == 0) {
+
 			int x = snake.getXposition();
 			int y = snake.getYposition();
-			
+
+			if (snake.getXposition() < 25)
+				x += 30;
+			else if (snake.getXposition() > 475)
+				x -= 25;
+
+			if (snake.getYposition() < 25)
+				y += 25;
+			else if (snake.getYposition() > 425)
+				y -= 34;
+
 			int[] xP = { x + 10, x + 20, x + 40, x + 30, x + 50, x + 30, x + 40, x + 20, x + 10, x, x - 20, x - 10,
 					x - 30, x - 10, x - 20, x };
 			int[] yP = { y - 20, y, y - 20, y + 10, y + 20, y + 30, y + 60, y + 40, y + 60, y + 40, y + 60, y + 30,
 					y + 20, y + 10, y - 20, y };
-			
-			
-			if(snake.getListSnakeSize() == 0) {
-			GradientPaint gp = new GradientPaint(x, y, Color.yellow, x + 40, y + 60, Color.RED);
-			g2d.setPaint(gp);
-			g2d.fillPolygon(xP, yP, xP.length);
+
+			if (snake.getListSnakeSize() == 0) {
+				GradientPaint gp = new GradientPaint(x, y, Color.yellow, x + 40, y + 60, Color.RED);
+				g2d.setPaint(gp);
+				g2d.fillPolygon(xP, yP, xP.length);
 			}
 
 		}
@@ -81,11 +91,9 @@ public class GraphicDesign extends JPanel {
 
 			g2d.setColor(colorSnake[setColorSnake]);
 
-			g2d.fill(rectSnakeList);			
-			
+			g2d.fill(rectSnakeList);
+
 		}
-		
-		
 
 		g2d.setColor(Color.lightGray);
 		g2d.setStroke(new BasicStroke(18));
