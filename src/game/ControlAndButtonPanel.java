@@ -72,25 +72,19 @@ public class ControlAndButtonPanel extends JPanel {
 	}
 
 	ControlAndButtonPanel() {
-
-		initLayout();
+		
 		addRestartButton();
 		addRestartButtonLabelInfoShorcut();
-		putLayoutConstraints();
+		initLayout();
 		addKeyboardSteering();
 
 	}
 
 	private void initLayout() {
 
-		SpringLayout layout = new SpringLayout();
-		setLayout(layout);
-	}
-
-	private void putLayoutConstraints() {
-
-		SpringLayout springLayout = (SpringLayout) this.getLayout();
-
+		SpringLayout springLayout = new SpringLayout();
+		setLayout(springLayout);
+		
 		springLayout.putConstraint(SpringLayout.WEST, restartButton, 15, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.NORTH, restartButton, 20, SpringLayout.NORTH, this);
 
