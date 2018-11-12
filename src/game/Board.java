@@ -1,134 +1,113 @@
 package game;
 
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import javax.swing.JFrame;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import javax.swing.JPanel;
 
-import sun.security.x509.IssuerAlternativeNameExtension;
+public class Board extends JPanel {
 
-public class Board extends JFrame {
+	private Snake snake = new Snake();
 
-	private ControlAndButtonPanel controlAndButtonPanel = new ControlAndButtonPanel();
-	private GraphicDesign graphicDesign = new GraphicDesign();
-
-	private boolean isSnakeBeenRemove = false;
+	private Color[] colorSnake = { new Color(000, 200, 000), Color.BLUE, Color.red };
+	private int setColorSnake = 0;
 
 	Board() {
 
-		Subtitles subtitles = new Subtitles();
-
-		GridBagConstraints gridBagConstraints = new GridBagConstraints();
-
-		setSize(550, 640);
-		;
-		setTitle("Snake");
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setMinimumSize(new Dimension(550, 640));
-		setLayout(new GridBagLayout());
-		setVisible(true);
-
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-
-		gridBagConstraints.ipadx = 100;
-		gridBagConstraints.ipady = 100;
-		gridBagConstraints.insets = new Insets(1, 3, 0, 0);
-
-		add(controlAndButtonPanel, gridBagConstraints);
-
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 0;
-
-		gridBagConstraints.ipadx = 20;
-		gridBagConstraints.ipady = 100;
-
-		gridBagConstraints.insets = new Insets(1, 0, 0, 3);
-
-		add(subtitles, gridBagConstraints);
-
-		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 1;
-		gridBagConstraints.ipadx = 515;
-		gridBagConstraints.ipady = 470;
-
-		gridBagConstraints.gridwidth = GridBagConstraints.REMAINDER;
-
-		gridBagConstraints.weighty = 0;
-		gridBagConstraints.insets = new Insets(6, 0, 0, 0);
-
-		add(graphicDesign, gridBagConstraints);
+		repaint();
 	}
 
-	public static void main(String[] argh) {
+	public Snake snake() {
 
-		Board board = new Board();
+		return snake;
+	}
 
-		while (true) {
+	public void startMovingRight() {
 
-			if (board.controlAndButtonPanel.isItRightDirectionIsOn() == true
-					&& board.graphicDesign.snake().getListSnakeSize() > 0)
-				board.graphicDesign.startMovingRight();
+		snake.goRight();
+	}
 
-			else if (board.controlAndButtonPanel.isItLeftDirectionIsOn() == true
-					&& board.graphicDesign.snake().getListSnakeSize() > 0)
-				board.graphicDesign.startMovingLeft();
+	public void startMovingLeft() {
 
-			else if (board.controlAndButtonPanel.isItUpDirectionIsOn() == true
-					&& board.graphicDesign.snake().getListSnakeSize() > 0)
-				board.graphicDesign.startMovingUp();
+		snake.goLeft();
 
-			else if (board.controlAndButtonPanel.isItDownDirectionIsOn() == true
-					&& board.graphicDesign.snake().getListSnakeSize() > 0)
-				board.graphicDesign.startMovingDown();
+	}
 
-			if (board.graphicDesign.snake().snakeCollisionDetection() == true || board.isSnakeBeenRemove == true) {
-				board.controlAndButtonPanel.stopDirections();
-				board.isSnakeBeenRemove = true;
-				board.graphicDesign.setColorSnake(2);
+	public void startMovingUp() {
 
-				if (board.graphicDesign.snake().snakeCollisionDetection() == true
-						&& board.graphicDesign.snake().getXposition() > 25
-								&& board.graphicDesign.snake().getXposition() < 475
-								&& board.graphicDesign.snake().getYposition() > 25
-								&& board.graphicDesign.snake().getYposition() < 425)
-					board.graphicDesign.snake()
-							.removeItemFromListSnake(board.graphicDesign.snake().getListSnakeSize() - 1);
+		snake.goUp();
 
-				for (int i = 0; i < board.graphicDesign.snake().getListSnakeSize(); i++) {
-					
-					board.graphicDesign.snake().killSnake();
-					board.repaint();
+	}
 
-					try {
-						Thread.sleep(500);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
+	public void startMovingDown() {
 
-				if (board.graphicDesign.snake().getListSnakeSize() == 0)
-					board.isSnakeBeenRemove = false;
+		snake.goDown();
 
-			}
+	}
 
-			board.graphicDesign.snake().constantSnakeLength();
+	public void setColorSnake(int i) {
 
-			board.repaint();
+		setColorSnake = i;
+	}
 
-			try {
-				Thread.sleep(250);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+	public void paint(Graphics g) {
+
+		Graphics2D g2d = (Graphics2D) g;
+
+		g2d.drawString("X: " + snake.getXposition() + " Y: " + snake.getYposition(), 50, 50);
+
+		if (snake.snakeCollisionDetection() == true || snake.getListSnakeSize() == 0) {
+
+			int x = snake.getXposition();
+			int y = snake.getYposition();
+
+			if (snake.getXposition() < 25)
+				x += 30;
+			else if (snake.getXposition() > 475)
+				x -= 25;
+
+			if (snake.getYposition() < 25)
+				y += 25;
+			else if (snake.getYposition() > 425)
+				y -= 34;
+
+			int[] xP = { x + 10, x + 20, x + 40, x + 30, x + 50, x + 30, x + 40, x + 20, x + 10, x, x - 20, x - 10,
+					x - 30, x - 10, x - 20, x };
+			int[] yP = { y - 20, y, y - 20, y + 10, y + 20, y + 30, y + 60, y + 40, y + 60, y + 40, y + 60, y + 30,
+					y + 20, y + 10, y - 20, y };
+
+			if (snake.getListSnakeSize() == 0) {
+				GradientPaint gp = new GradientPaint(x, y, Color.yellow, x + 40, y + 60, Color.RED);
+				g2d.setPaint(gp);
+				g2d.fillPolygon(xP, yP, xP.length);
 			}
 
 		}
+
+		for (Rectangle rectSnakeList : snake.getRectSnakeList()) {
+
+			g2d.setColor(colorSnake[setColorSnake]);
+
+			g2d.fill(rectSnakeList);
+
+		}
+
+		g2d.setColor(Color.lightGray);
+		g2d.setStroke(new BasicStroke(18));
+		g2d.drawRect(getWidth() / 2 - 250, getHeight() / 2 - 225, 500, 447);
+
+		g2d.setColor(Color.black);
+		g2d.setStroke(new BasicStroke(4));
+		g2d.drawRect(getWidth() / 2 - 240, getHeight() / 2 - 218, 481, 431);
+
+		g2d.setColor(Color.red);
+//		g2d.drawLine(getWidth() / 2 + 241, getHeight() / 2 - 214, getWidth() / 2 + 241, getHeight() / 2 + 209);
+//		g2d.drawLine(getWidth() / 2 - 240, getHeight() / 2 - 214, getWidth() / 2 - 240, getHeight() / 2 + 209);
+//		g2d.drawLine(getWidth() / 2 - 236, getHeight() / 2 - 218, getWidth() / 2 + 237, getHeight() / 2 - 218);
+//		g2d.drawLine(getWidth() / 2 - 236, getHeight() / 2 + 213, getWidth() / 2 + 237, getHeight() / 2 + 213);
 
 	}
 
