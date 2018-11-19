@@ -10,13 +10,10 @@ import sun.security.x509.IssuerAlternativeNameExtension;
 
 public class MainWindow extends JFrame {
 
-	private ControlAndButtonPanel controlAndButtonPanel = new ControlAndButtonPanel();
+	private ButtonPanel buttonPanel = new ButtonPanel();
 	private Board board = new Board();
 
 	private boolean isSnakeBeenRemove = false;
-	
-	private int snakeXposition;
-	private int snakeYposition;
 
 	MainWindow() {
 
@@ -41,7 +38,7 @@ public class MainWindow extends JFrame {
 		gridBagConstraints.ipady = 100;
 		gridBagConstraints.insets = new Insets(1, 3, 0, 0);
 
-		add(controlAndButtonPanel, gridBagConstraints);
+		add(buttonPanel, gridBagConstraints);
 
 		gridBagConstraints.fill = GridBagConstraints.HORIZONTAL;
 		gridBagConstraints.gridx = 1;
@@ -74,45 +71,34 @@ public class MainWindow extends JFrame {
 
 		while (true) {
 
-			if (mainWindow.controlAndButtonPanel.isItRightDirectionIsOn() == true
-					&& mainWindow.board.snake().getListSnakeSize() > 0) {
-			
-				mainWindow.snakeXposition = mainWindow.board.snake().getXposition();
-				
-				mainWindow.board.startMovingRight();				
-			}
+			if (mainWindow.board.isItRightDirectionIsOn() == true && mainWindow.board.snake().getListSnakeSize() > 0)
+				mainWindow.board.startMovingRight();
 
-			else if (mainWindow.controlAndButtonPanel.isItLeftDirectionIsOn() == true
+			else if (mainWindow.board.isItLeftDirectionIsOn() == true
 					&& mainWindow.board.snake().getListSnakeSize() > 0)
 				mainWindow.board.startMovingLeft();
 
-			else if (mainWindow.controlAndButtonPanel.isItUpDirectionIsOn() == true
-					&& mainWindow.board.snake().getListSnakeSize() > 0)
+			else if (mainWindow.board.isItUpDirectionIsOn() == true && mainWindow.board.snake().getListSnakeSize() > 0)
 				mainWindow.board.startMovingUp();
 
-			else if (mainWindow.controlAndButtonPanel.isItDownDirectionIsOn() == true && mainWindow.compareXposition() == true
-					&& mainWindow.board.snake().getListSnakeSize() > 0) {
-				
-				
+			else if (mainWindow.board.isItDownDirectionIsOn() == true
+					&& mainWindow.board.snake().getListSnakeSize() > 0)
 				mainWindow.board.startMovingDown();
-			}
-				
 
 			if (mainWindow.board.snake().snakeCollisionDetection() == true || mainWindow.isSnakeBeenRemove == true) {
-				mainWindow.controlAndButtonPanel.stopDirections();
+				mainWindow.board.stopDirections();
 				mainWindow.isSnakeBeenRemove = true;
 				mainWindow.board.setColorSnake(2);
+				int listSnakeSize = mainWindow.board.snake().getListSnakeSize();
 
-				if (mainWindow.board.snake().snakeCollisionDetection() == true
-						&& mainWindow.board.snake().getXposition() > 25
-								&& mainWindow.board.snake().getXposition() < 475
-								&& mainWindow.board.snake().getYposition() > 25
-								&& mainWindow.board.snake().getYposition() < 425)
-					mainWindow.board.snake()
-							.removeItemFromListSnake(mainWindow.board.snake().getListSnakeSize() - 1);
+//				if (mainWindow.board.snake().snakeCollisionDetection() == true
+//						&& mainWindow.board.snake().getXposition() > 25 && mainWindow.board.snake().getXposition() < 475
+//						&& mainWindow.board.snake().getYposition() > 25
+//						&& mainWindow.board.snake().getYposition() < 425)
+//					mainWindow.board.snake().removeItemFromListSnake(mainWindow.board.snake().getListSnakeSize() - 1);
 
-				for (int i = 0; i < mainWindow.board.snake().getListSnakeSize(); i++) {
-					
+				for (int i = 0; i < listSnakeSize; i++) {
+
 					mainWindow.board.snake().killSnake();
 					mainWindow.repaint();
 
@@ -122,7 +108,25 @@ public class MainWindow extends JFrame {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+
 				}
+
+				mainWindow.board.setStartCountdown(true);
+
+				for (int i = 3; i >= 0; i--) {
+
+					mainWindow.board.setCountdownValue(i);
+					mainWindow.repaint();
+
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				mainWindow.board.setStartCountdown(false);
 
 				if (mainWindow.board.snake().getListSnakeSize() == 0)
 					mainWindow.isSnakeBeenRemove = false;
@@ -138,21 +142,8 @@ public class MainWindow extends JFrame {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-
 		}
-		
-		
-	}
-	
-	private boolean compareXposition() {
 
-		boolean isVarious = false;
-		
-		if(snakeXposition != board.snake().getXposition());
-		isVarious = true;
-		
-		return isVarious;
-				
 	}
 
 }

@@ -53,9 +53,9 @@ public class Snake {
 		this.y = y[randomy];
 
 	}
-	
+
 	public void setLength(int length) {
-		
+
 		slength = length;
 	}
 
@@ -105,6 +105,60 @@ public class Snake {
 		return slength;
 	}
 
+	public Rectangle getRectFromSnakeList(int positionFromList) {
+
+		return listSnake.get(positionFromList);
+	}
+
+	public boolean copmareXpositionFromSnakeList() {
+
+		boolean isVarious = true;
+
+		if (listSnake.size() <= 1)
+			isVarious = true;
+
+		else if (listSnake.get(listSnake.size() - 1).getX() == listSnake.get(listSnake.size() - 2).getX())
+			isVarious = false;
+
+		return isVarious;
+	}
+
+	public boolean copmareYpositionFromSnakeList() {
+
+		boolean isVarious = true;
+
+		if (listSnake.size() <= 1)
+			isVarious = true;
+
+		else if (listSnake.get(listSnake.size() - 1).getY() == listSnake.get(listSnake.size() - 2).getY())
+			isVarious = false;
+
+		return isVarious;
+	}
+
+	public char getSnakeDirection() {
+
+		char direction = '0';
+
+		if (copmareYpositionFromSnakeList() == false
+				&& listSnake.get(listSnake.size() - 1).getX() > listSnake.get(listSnake.size() - 2).getX())
+			direction = 'E';
+
+		else if (copmareYpositionFromSnakeList() == false
+				&& listSnake.get(listSnake.size() - 1).getX() < listSnake.get(listSnake.size() - 2).getX())
+			direction = 'W';
+
+		else if (copmareXpositionFromSnakeList() == false
+				&& listSnake.get(listSnake.size() - 1).getY() < listSnake.get(listSnake.size() - 2).getY())
+			direction = 'N';
+
+		else if (copmareXpositionFromSnakeList() == false
+				&& listSnake.get(listSnake.size() - 1).getY() > listSnake.get(listSnake.size() - 2).getY())
+			direction = 'S';
+
+		return direction;
+	}
+
 	public List<Rectangle> getRectSnakeList() {
 
 		return listSnake;
@@ -128,16 +182,14 @@ public class Snake {
 
 			for (int i = 0; i < listSnake.size() - 3; i++) {
 				if (listSnake.get(listSnake.size() - 1).intersects(listSnake.get(i)))
-					
+
 					snakeCollision = true;
 			}
 		}
 
-		if (x > 475 || x < 25 || y < 25 || y > 425) {			
+		if (listSnake.size()>0 && (x > 475 || x < 25 || y < 25 || y > 425)) {
 			snakeCollision = true;
 		}
-		
-		
 
 		return snakeCollision;
 	}
@@ -149,7 +201,7 @@ public class Snake {
 
 	public void constantSnakeLength() {
 
-		if (listSnake.size() > slength && (x<475 || x > 25 || y > 25 || y < 425))
+		if (listSnake.size() > slength && (x < 475 || x > 25 || y > 25 || y < 425))
 			listSnake.remove(0);
 	}
 
@@ -219,12 +271,11 @@ public class Snake {
 		}
 
 	}
-	
+
 	public void killSnake() {
-		
-		if(listSnake.size()>0)
+
+		if (listSnake.size() > 0)
 			listSnake.remove(0);
 
-		
 	}
 }
