@@ -10,7 +10,7 @@ public class Snake {
 	private int x;
 	private int y;
 
-	private int slength = 7;
+	private int slength = 3;
 
 	private int colorSnake = 0500100;
 

@@ -13,6 +13,12 @@ public class Food {
 
 	private Random randomFoodPosition = new Random();
 
+	public void addFoodToTheList() {
+		
+		setRandomFoofPosition();
+		foodList.add(new Rectangle(xFood, yFood, 25, 25));		
+	}
+	
 	public void setRandomFoofPosition() {
 
 		int[] x = new int[16];
@@ -36,4 +42,24 @@ public class Food {
 		yFood = y[randomy];
 
 	}
+	
+	public List<Rectangle> getFoodList() {
+		
+		return foodList;
+	}
+	
+	public Rectangle getItemFromTheFoodList(int numberPositionFromTheFoodList){
+		
+		return foodList.get(numberPositionFromTheFoodList);
+	}
+	
+	public void removeItemFromTheFoodList(int number) {
+		
+		foodList.remove(number);
+	}
+	
+	public int getFoodListSize() {
+		
+		return foodList.size();
+	}	
 }

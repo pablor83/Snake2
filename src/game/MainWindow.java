@@ -89,48 +89,23 @@ public class MainWindow extends JFrame {
 				mainWindow.board.stopDirections();
 				mainWindow.isSnakeBeenRemove = true;
 				mainWindow.board.setColorSnake(2);
-				int listSnakeSize = mainWindow.board.snake().getListSnakeSize();
 
-//				if (mainWindow.board.snake().snakeCollisionDetection() == true
-//						&& mainWindow.board.snake().getXposition() > 25 && mainWindow.board.snake().getXposition() < 475
-//						&& mainWindow.board.snake().getYposition() > 25
-//						&& mainWindow.board.snake().getYposition() < 425)
-//					mainWindow.board.snake().removeItemFromListSnake(mainWindow.board.snake().getListSnakeSize() - 1);
-
-				for (int i = 0; i < listSnakeSize; i++) {
-
-					mainWindow.board.snake().killSnake();
-					mainWindow.repaint();
-
-					try {
-						Thread.sleep(500);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
-				}
-
-				mainWindow.board.setStartCountdown(true);
-
-				for (int i = 3; i >= 0; i--) {
-
-					mainWindow.board.setCountdownValue(i);
-					mainWindow.repaint();
-
-					try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
+				mainWindow.board.setRemoveSnake(mainWindow, 500);
 				
+				mainWindow.board.setStartCountdown(true);
+				mainWindow.board.setCountdown(mainWindow, 3, 1000);
 				mainWindow.board.setStartCountdown(false);
 
 				if (mainWindow.board.snake().getListSnakeSize() == 0)
 					mainWindow.isSnakeBeenRemove = false;
 
+			}
+			
+			if(mainWindow.board.isItFoodEaten() == true) {
+				
+				mainWindow.board.snake().setLength(mainWindow.board.snake().getSnakeLength()+1);
+				mainWindow.board.food().removeItemFromTheFoodList(0);
+				mainWindow.board.food().addFoodToTheList();
 			}
 
 			mainWindow.board.snake().constantSnakeLength();

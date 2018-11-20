@@ -12,12 +12,14 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
 public class Board extends JPanel {
 
 	private Snake snake = new Snake();
+	private Food food = new Food();
 
 	private Color[] colorSnake = { new Color(000, 200, 000), Color.BLUE, Color.red };
 	private int setColorSnake = 0;
@@ -33,11 +35,17 @@ public class Board extends JPanel {
 	Board() {
 
 		addKeyboardSteering();
+		food.addFoodToTheList();
 	}
 
 	public Snake snake() {
 
 		return snake;
+	}
+	
+	public Food food() {
+		
+		return food;
 	}
 
 	public void startMovingRight() {
@@ -73,9 +81,56 @@ public class Board extends JPanel {
 		startCountdown = b;
 	}
 
-	public void setCountdownValue(int i) {
+//	public void setCountdownValue(int i) {
+//
+//		coutdownValue = i;
+//	}
 
-		coutdownValue = i;
+	public void setRemoveSnake(MainWindow m, int setSpeedRemovingSnake) {
+
+		int listSnakeSize = snake.getListSnakeSize();
+
+		for (int i = 0; i < listSnakeSize; i++) {
+
+			snake.killSnake();
+			m.repaint();
+
+			try {
+				Thread.sleep(setSpeedRemovingSnake);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+	}
+
+	public void setCountdown(MainWindow m, int displayNumerOfSeconds, int millisecond) {
+
+		for (int i = displayNumerOfSeconds; i > 0; i--) {
+
+			coutdownValue = i;
+			m.repaint();
+
+			try {
+				Thread.sleep(millisecond);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public boolean isItFoodEaten() {
+
+		boolean foodEaten = false;
+
+		for (int i = 0; i < food.getFoodListSize(); i++) {
+			if (snake.getHeadRectCoordinates().intersects(food.getItemFromTheFoodList(i)))
+				foodEaten = true;
+		}
+
+		return foodEaten;
 	}
 
 	public void paint(Graphics g) {
@@ -115,9 +170,14 @@ public class Board extends JPanel {
 		for (Rectangle rectSnakeList : snake.getRectSnakeList()) {
 
 			g2d.setColor(colorSnake[setColorSnake]);
-
 			g2d.fill(rectSnakeList);
 
+		}
+
+		for (Rectangle rectFoodList : food.getFoodList()) {
+
+			g2d.setColor(new Color(300300300));
+			g2d.fill(rectFoodList);
 		}
 
 		if (startCountdown == true) {
@@ -289,5 +349,4 @@ public class Board extends JPanel {
 		inputMap.put(KeyStroke.getKeyStroke("ctrl R"), "restart");
 
 	}
-
 }
