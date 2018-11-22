@@ -17,9 +17,14 @@ public class ButtonPanel extends JPanel {
 
 	private JButton restartButton;
 	private JLabel restartButtonLabelInfoShorcut;
+	private Board board; 
+	private Subtitles subtitles;
 
-	ButtonPanel() {
-
+	ButtonPanel(Board bd, Subtitles sub) {
+		
+		board = bd;
+		subtitles = sub;
+		
 		addRestartButton();
 		addRestartButtonLabelInfoShorcut();
 		initLayout();
@@ -43,6 +48,27 @@ public class ButtonPanel extends JPanel {
 
 		restartButton = new JButton("Restart");
 		add(restartButton);
+
+		restartButton.addActionListener(restartAction -> {
+
+			board.stopDirections();
+			board.setGameOverSign(false);
+			board.snake().setSnakeLength(3);
+			subtitles.setStartLives(3);
+			board.snake().setColorSnake(0);
+			
+			if(board.snake().getListSnakeSize()>0)
+				board.snake().cleanSnakeList();
+			
+			if(board.getCoutdownStatus() == true)
+				board.setStartCountdown(false);
+				
+			board.snake().setStartPosition();
+			board.snake().addHeadRectList();
+			
+			board.food().removeItemFromTheFoodList(0);
+			board.food().addFoodToTheList();
+		});
 	}
 
 	private void addRestartButtonLabelInfoShorcut() {

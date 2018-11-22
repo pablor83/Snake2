@@ -8,16 +8,15 @@ import javax.swing.JFrame;
 
 import sun.security.x509.IssuerAlternativeNameExtension;
 
-public class MainWindow extends JFrame {
-
-	private ButtonPanel buttonPanel = new ButtonPanel();
+public class MainWindow extends JFrame {	
+	
 	private Board board = new Board();
+	private Subtitles subtitles = new Subtitles();
+	private ButtonPanel buttonPanel = new ButtonPanel(board, subtitles);
 
 	private boolean isSnakeBeenRemove = false;
 
 	MainWindow() {
-
-		Subtitles subtitles = new Subtitles();
 
 		GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
@@ -86,24 +85,42 @@ public class MainWindow extends JFrame {
 				mainWindow.board.startMovingDown();
 
 			if (mainWindow.board.snake().snakeCollisionDetection() == true || mainWindow.isSnakeBeenRemove == true) {
-				mainWindow.board.stopDirections();
-				mainWindow.isSnakeBeenRemove = true;
-				mainWindow.board.setColorSnake(2);
 
-				mainWindow.board.setRemoveSnake(mainWindow, 500);
-				
-				mainWindow.board.setStartCountdown(true);
-				mainWindow.board.setCountdown(mainWindow, 3, 1000);
-				mainWindow.board.setStartCountdown(false);
+				int keepSnakeLength = mainWindow.board.snake().getSnakeLength();
 
-				if (mainWindow.board.snake().getListSnakeSize() == 0)
+				mainWindow.subtitles.setLives(1);
+
+				if (mainWindow.subtitles.getLives() > 0) {
+
+					mainWindow.board.stopDirections();
+					mainWindow.isSnakeBeenRemove = true;
+					mainWindow.board.snake().setColorSnake(2);
+
+					mainWindow.board.setRemoveSnake(mainWindow, 250);
+
+					mainWindow.board.setStartCountdown(true);
+					mainWindow.board.setCountdown(mainWindow, 3, 1000);
+					mainWindow.board.setStartCountdown(false);
+
+					if (mainWindow.board.snake().getListSnakeSize() == 0)
+						mainWindow.isSnakeBeenRemove = false;
+
+					mainWindow.board.snake().setSnakeLength(keepSnakeLength);
+					mainWindow.board.snake().setColorSnake(0);
+					mainWindow.board.setRandomMoveDirectionOfSnake();
+				} else {
+
 					mainWindow.isSnakeBeenRemove = false;
+					mainWindow.board.setRemoveSnake(mainWindow, 250);
+					mainWindow.board.setGameOverSign(true);
+				}
 
 			}
-			
-			if(mainWindow.board.isItFoodEaten() == true) {
-				
-				mainWindow.board.snake().setLength(mainWindow.board.snake().getSnakeLength()+1);
+
+			if (mainWindow.board.isItFoodEaten() == true) {
+
+				mainWindow.subtitles.setPoints(1);
+				mainWindow.board.snake().setSnakeLength(mainWindow.board.snake().getSnakeLength() + 1);
 				mainWindow.board.food().removeItemFromTheFoodList(0);
 				mainWindow.board.food().addFoodToTheList();
 			}

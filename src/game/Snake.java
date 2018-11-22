@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,7 +13,8 @@ public class Snake {
 
 	private int slength = 3;
 
-	private int colorSnake = 0500100;
+	private int colorOfSnake = 0;
+	private Color[] colorSnake = { new Color(000, 200, 000), Color.BLUE, Color.red };
 
 	private List<Rectangle> listSnake = new LinkedList<>();
 
@@ -54,9 +56,14 @@ public class Snake {
 
 	}
 
-	public void setLength(int length) {
+	public void setSnakeLength(int length) {
 
 		slength = length;
+	}
+
+	public void setColorSnake(int i) {
+
+		colorOfSnake = i;
 	}
 
 //	public void setColorSnake(int c) {
@@ -103,6 +110,11 @@ public class Snake {
 	public int getSnakeLength() {
 
 		return slength;
+	}
+
+	public Color getColorOfSnake() {
+
+		return colorSnake[colorOfSnake];
 	}
 
 	public Rectangle getRectFromSnakeList(int positionFromList) {
@@ -187,7 +199,7 @@ public class Snake {
 			}
 		}
 
-		if (listSnake.size()>0 && (x > 475 || x < 25 || y < 25 || y > 425)) {
+		if (listSnake.size() > 0 && (x > 475 || x < 25 || y < 25 || y > 425)) {
 			snakeCollision = true;
 		}
 
@@ -277,5 +289,10 @@ public class Snake {
 		if (listSnake.size() > 0)
 			listSnake.remove(0);
 
+	}
+	
+	public void cleanSnakeList() {
+		
+		listSnake.removeAll(listSnake);
 	}
 }

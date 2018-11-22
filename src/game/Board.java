@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
+import java.util.Random;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
@@ -21,15 +22,13 @@ public class Board extends JPanel {
 	private Snake snake = new Snake();
 	private Food food = new Food();
 
-	private Color[] colorSnake = { new Color(000, 200, 000), Color.BLUE, Color.red };
-	private int setColorSnake = 0;
-
 	private boolean xRight = false;
 	private boolean xLeft = false;
 	private boolean yUp = false;
 	private boolean yDown = false;
 
 	private boolean startCountdown = false;
+	private boolean displayGameOver = false;
 	private int coutdownValue;
 
 	Board() {
@@ -42,9 +41,9 @@ public class Board extends JPanel {
 
 		return snake;
 	}
-	
+
 	public Food food() {
-		
+
 		return food;
 	}
 
@@ -69,11 +68,6 @@ public class Board extends JPanel {
 
 		snake.goDown();
 
-	}
-
-	public void setColorSnake(int i) {
-
-		setColorSnake = i;
 	}
 
 	public void setStartCountdown(boolean b) {
@@ -119,6 +113,43 @@ public class Board extends JPanel {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public boolean getCoutdownStatus() {
+		
+		return startCountdown;
+	}
+
+	public void setGameOverSign(boolean b) {
+
+		displayGameOver = b;
+	}
+
+	public void setRandomMoveDirectionOfSnake() {
+
+		Random randomMove = new Random();
+
+		snake.setStartPosition();
+		snake.addHeadRectList();
+		switch (randomMove.nextInt(4) + 1) {
+
+		case 1:
+			xRight = true;
+			break;
+
+		case 2:
+			xLeft = true;
+			break;
+
+		case 3:
+			yUp = true;
+			break;
+
+		case 4:
+			yDown = true;
+			break;
+		}
+
 	}
 
 	public boolean isItFoodEaten() {
@@ -169,7 +200,7 @@ public class Board extends JPanel {
 
 		for (Rectangle rectSnakeList : snake.getRectSnakeList()) {
 
-			g2d.setColor(colorSnake[setColorSnake]);
+			g2d.setColor(snake.getColorOfSnake());
 			g2d.fill(rectSnakeList);
 
 		}
@@ -185,6 +216,13 @@ public class Board extends JPanel {
 			g2d.setColor(Color.red);
 			g2d.setFont(new Font("TimesRoman", Font.BOLD, 20));
 			g2d.drawString("Odrodzenie za: " + coutdownValue, 180, 220);
+		}
+
+		if (displayGameOver == true) {
+
+			g2d.setColor(Color.red);
+			g2d.setFont(new Font("TimesRoman", Font.BOLD, 24));
+			g2d.drawString("Koniec Gry!", 200, 220);
 		}
 
 		g2d.setColor(Color.lightGray);

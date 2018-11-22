@@ -9,9 +9,15 @@ import javax.swing.SpringLayout;
 
 public class Subtitles extends JPanel {
 
+	int lives = 3;
+	int points = 0;
+	int levels = 1;
+	private JLabel infoPause, infoPoints, infoLives, infoLevel;
+
 	Subtitles() {
 
-		JLabel gameName, infoStart, infoPause, infoPoints, infoLives, infoLevel, infoColorSnake;
+		JLabel gameName, infoStart, infoColorSnake;
+
 		SpringLayout springLayout = new SpringLayout();
 
 		setLayout(springLayout);
@@ -33,17 +39,17 @@ public class Subtitles extends JPanel {
 		infoPause.setFont(new Font("TimesRoman", Font.BOLD, 14));
 		add(infoPause);
 
-		infoPoints = new JLabel("Punkty: ");
+		infoPoints = new JLabel("Punkty: " + points);
 		infoPoints.setForeground(Color.blue);
 		infoPoints.setFont(new Font("TimesRoman", Font.BOLD, 14));
 		add(infoPoints);
 
-		infoLives = new JLabel("¯ycie: ");
+		infoLives = new JLabel("¯ycie: " + lives);
 		infoLives.setForeground(Color.RED);
 		infoLives.setFont(new Font("TimesRoman", Font.BOLD, 14));
 		add(infoLives);
 
-		infoLevel = new JLabel("Poziom: ");
+		infoLevel = new JLabel("Poziom: " + levels);
 		infoLevel.setForeground(Color.BLACK);
 		infoLevel.setFont(new Font("TimesRoman", Font.BOLD, 14));
 		add(infoLevel);
@@ -78,4 +84,30 @@ public class Subtitles extends JPanel {
 
 	}
 
+	public void setLives(int l) {
+
+		lives -= l;
+		infoLives.setText("¯ycie: " + lives);
+	}
+	
+	public void setStartLives(int i) {
+		
+		lives = i;
+	}
+
+	public void setPoints(int p) {
+
+		points += p;
+		infoPoints.setText("Punkty: " + points);
+	}
+
+	public int getLives() {
+
+		return lives;
+	}
+
+	public int getPoints() {
+
+		return points;
+	}
 }
