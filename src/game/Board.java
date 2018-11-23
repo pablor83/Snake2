@@ -34,7 +34,7 @@ public class Board extends JPanel {
 	Board() {
 
 		addKeyboardSteering();
-		food.addFoodToTheList();
+		food.addFoodToTheList(1);
 	}
 
 	public Snake snake() {
@@ -114,9 +114,9 @@ public class Board extends JPanel {
 			}
 		}
 	}
-	
+
 	public boolean getCoutdownStatus() {
-		
+
 		return startCountdown;
 	}
 
@@ -152,13 +152,19 @@ public class Board extends JPanel {
 
 	}
 
-	public boolean isItFoodEaten() {
+	public boolean isItFoodEaten(MainWindow mw) {
 
 		boolean foodEaten = false;
 
 		for (int i = 0; i < food.getFoodListSize(); i++) {
-			if (snake.getHeadRectCoordinates().intersects(food.getItemFromTheFoodList(i)))
+			if (snake.getHeadRectCoordinates().intersects(food.getItemFromTheFoodList(i))) {
+
 				foodEaten = true;
+				food.removeItemFromTheFoodList(i);
+				mw.repaint();
+				
+			}
+
 		}
 
 		return foodEaten;
@@ -207,7 +213,7 @@ public class Board extends JPanel {
 
 		for (Rectangle rectFoodList : food.getFoodList()) {
 
-			g2d.setColor(new Color(300300300));
+			g2d.setColor(new Color(200300300));
 			g2d.fill(rectFoodList);
 		}
 

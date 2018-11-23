@@ -67,7 +67,7 @@ public class ButtonPanel extends JPanel {
 			board.snake().addHeadRectList();
 			
 			board.food().removeItemFromTheFoodList(0);
-			board.food().addFoodToTheList();
+			board.food().addFoodToTheList(1);
 		});
 	}
 

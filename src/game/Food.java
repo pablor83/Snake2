@@ -13,10 +13,16 @@ public class Food {
 
 	private Random randomFoodPosition = new Random();
 
-	public void addFoodToTheList() {
+	public void addFoodToTheList(int amount) {
 
-		setRandomFoofPosition();
-		foodList.add(new Rectangle(xFood, yFood, 25, 25));
+		int amountOfFood = amount;
+
+		if (foodList.size() == 0) {
+			for (int i = 0; i < amountOfFood; i++) {
+				setRandomFoofPosition();
+				foodList.add(new Rectangle(xFood, yFood, 25, 25));
+			}
+		}
 	}
 
 	public void setRandomFoofPosition() {

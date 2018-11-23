@@ -8,8 +8,8 @@ import javax.swing.JFrame;
 
 import sun.security.x509.IssuerAlternativeNameExtension;
 
-public class MainWindow extends JFrame {	
-	
+public class MainWindow extends JFrame {
+
 	private Board board = new Board();
 	private Subtitles subtitles = new Subtitles();
 	private ButtonPanel buttonPanel = new ButtonPanel(board, subtitles);
@@ -117,12 +117,11 @@ public class MainWindow extends JFrame {
 
 			}
 
-			if (mainWindow.board.isItFoodEaten() == true) {
+			if (mainWindow.board.isItFoodEaten(mainWindow) == true) {
 
 				mainWindow.subtitles.setPoints(1);
 				mainWindow.board.snake().setSnakeLength(mainWindow.board.snake().getSnakeLength() + 1);
-				mainWindow.board.food().removeItemFromTheFoodList(0);
-				mainWindow.board.food().addFoodToTheList();
+				mainWindow.board.food().addFoodToTheList(3);
 			}
 
 			mainWindow.board.snake().constantSnakeLength();
