@@ -152,20 +152,16 @@ public class Snake {
 
 		char direction = '0';
 
-		if (copmareYpositionFromSnakeList() == false
-				&& listSnake.get(listSnake.size() - 1).getX() > listSnake.get(listSnake.size() - 2).getX())
+		if (!copmareYpositionFromSnakeList() && listSnake.get(listSnake.size() - 1).getX() > listSnake.get(listSnake.size() - 2).getX())
 			direction = 'E';
 
-		else if (copmareYpositionFromSnakeList() == false
-				&& listSnake.get(listSnake.size() - 1).getX() < listSnake.get(listSnake.size() - 2).getX())
+		else if (!copmareYpositionFromSnakeList() && listSnake.get(listSnake.size() - 1).getX() < listSnake.get(listSnake.size() - 2).getX())
 			direction = 'W';
 
-		else if (copmareXpositionFromSnakeList() == false
-				&& listSnake.get(listSnake.size() - 1).getY() < listSnake.get(listSnake.size() - 2).getY())
+		else if (!copmareXpositionFromSnakeList() && listSnake.get(listSnake.size() - 1).getY() < listSnake.get(listSnake.size() - 2).getY())
 			direction = 'N';
 
-		else if (copmareXpositionFromSnakeList() == false
-				&& listSnake.get(listSnake.size() - 1).getY() > listSnake.get(listSnake.size() - 2).getY())
+		else if (!copmareXpositionFromSnakeList() && listSnake.get(listSnake.size() - 1).getY() > listSnake.get(listSnake.size() - 2).getY())
 			direction = 'S';
 
 		return direction;
@@ -290,9 +286,9 @@ public class Snake {
 			listSnake.remove(0);
 
 	}
-	
+
 	public void cleanSnakeList() {
-		
+
 		listSnake.removeAll(listSnake);
 	}
 }

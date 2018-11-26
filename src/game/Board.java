@@ -152,7 +152,7 @@ public class Board extends JPanel {
 
 	}
 
-	public boolean isItFoodEaten(MainWindow mw) {
+	public boolean isItFoodEaten() {
 
 		boolean foodEaten = false;
 
@@ -161,8 +161,7 @@ public class Board extends JPanel {
 
 				foodEaten = true;
 				food.removeItemFromTheFoodList(i);
-				mw.repaint();
-				
+
 			}
 
 		}
@@ -176,7 +175,7 @@ public class Board extends JPanel {
 
 		g2d.drawString("X: " + snake.getXposition() + " Y: " + snake.getYposition(), 50, 50);
 
-		if (snake.snakeCollisionDetection() == true || snake.getListSnakeSize() == 0) {
+		if (snake.snakeCollisionDetection() || snake.getListSnakeSize() == 0) {
 
 			int x = snake.getXposition();
 			int y = snake.getYposition();
@@ -224,7 +223,7 @@ public class Board extends JPanel {
 			g2d.drawString("Odrodzenie za: " + coutdownValue, 180, 220);
 		}
 
-		if (displayGameOver == true) {
+		if (displayGameOver) {
 
 			g2d.setColor(Color.red);
 			g2d.setFont(new Font("TimesRoman", Font.BOLD, 24));
@@ -321,7 +320,7 @@ public class Board extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (xLeft != true && snake.getSnakeDirection() != 'W') {
+				if (!xLeft && snake.getSnakeDirection() != 'W') {
 					xRight = true;
 					xLeft = false;
 					yUp = false;
@@ -336,7 +335,7 @@ public class Board extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (xRight != true && snake.getSnakeDirection() != 'E') {
+				if (!xRight && snake.getSnakeDirection() != 'E') {
 					xLeft = true;
 					xRight = false;
 					yUp = false;
@@ -351,7 +350,7 @@ public class Board extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (yDown != true && snake.getSnakeDirection() != 'S') {
+				if (!yDown && snake.getSnakeDirection() != 'S') {
 					yUp = true;
 					yDown = false;
 					xRight = false;
@@ -367,7 +366,7 @@ public class Board extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (yUp != true && snake.getSnakeDirection() != 'N') {
+				if (!yUp && snake.getSnakeDirection() != 'N') {
 					yDown = true;
 					yUp = false;
 					xRight = false;

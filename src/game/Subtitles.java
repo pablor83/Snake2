@@ -89,9 +89,9 @@ public class Subtitles extends JPanel {
 		lives -= l;
 		infoLives.setText("¯ycie: " + lives);
 	}
-	
+
 	public void setStartLives(int i) {
-		
+
 		lives = i;
 	}
 

@@ -70,31 +70,29 @@ public class MainWindow extends JFrame {
 
 		while (true) {
 
-			if (mainWindow.board.isItRightDirectionIsOn() == true && mainWindow.board.snake().getListSnakeSize() > 0)
+			if (mainWindow.board.isItRightDirectionIsOn() && mainWindow.board.snake().getListSnakeSize() > 0)
 				mainWindow.board.startMovingRight();
 
-			else if (mainWindow.board.isItLeftDirectionIsOn() == true
-					&& mainWindow.board.snake().getListSnakeSize() > 0)
+			else if (mainWindow.board.isItLeftDirectionIsOn() && mainWindow.board.snake().getListSnakeSize() > 0)
 				mainWindow.board.startMovingLeft();
 
-			else if (mainWindow.board.isItUpDirectionIsOn() == true && mainWindow.board.snake().getListSnakeSize() > 0)
+			else if (mainWindow.board.isItUpDirectionIsOn() && mainWindow.board.snake().getListSnakeSize() > 0)
 				mainWindow.board.startMovingUp();
 
-			else if (mainWindow.board.isItDownDirectionIsOn() == true
-					&& mainWindow.board.snake().getListSnakeSize() > 0)
+			else if (mainWindow.board.isItDownDirectionIsOn() && mainWindow.board.snake().getListSnakeSize() > 0)
 				mainWindow.board.startMovingDown();
 
-			if (mainWindow.board.snake().snakeCollisionDetection() == true || mainWindow.isSnakeBeenRemove == true) {
+			if (mainWindow.board.snake().snakeCollisionDetection() || mainWindow.isSnakeBeenRemove) {
 
 				int keepSnakeLength = mainWindow.board.snake().getSnakeLength();
 
+				mainWindow.board.snake().setColorSnake(2);
 				mainWindow.subtitles.setLives(1);
 
 				if (mainWindow.subtitles.getLives() > 0) {
 
 					mainWindow.board.stopDirections();
 					mainWindow.isSnakeBeenRemove = true;
-					mainWindow.board.snake().setColorSnake(2);
 
 					mainWindow.board.setRemoveSnake(mainWindow, 250);
 
@@ -117,12 +115,14 @@ public class MainWindow extends JFrame {
 
 			}
 
-			if (mainWindow.board.isItFoodEaten(mainWindow) == true) {
+			if (mainWindow.board.isItFoodEaten()) {
 
 				mainWindow.subtitles.setPoints(1);
 				mainWindow.board.snake().setSnakeLength(mainWindow.board.snake().getSnakeLength() + 1);
 				mainWindow.board.food().addFoodToTheList(3);
 			}
+			
+			
 
 			mainWindow.board.snake().constantSnakeLength();
 
