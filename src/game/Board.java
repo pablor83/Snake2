@@ -34,7 +34,9 @@ public class Board extends JPanel {
 	Board() {
 
 		addKeyboardSteering();
-		food.addFoodToTheList(1);
+		snake.setStartPosition();
+		snake.addHeadRectList();
+		checkThePositionOfFoodAndSnakeAndAddFood();
 	}
 
 	public Snake snake() {
@@ -45,6 +47,46 @@ public class Board extends JPanel {
 	public Food food() {
 
 		return food;
+	}
+
+	private void checkThePositionOfFoodAndSnakeAndAddFood() {
+
+		boolean start = true;
+		boolean isItIntersect = false;
+		food.setRandomFoofPosition();
+		Rectangle randomRect = new Rectangle(food.getRandomX(), food.getRandomY(), 25, 25);
+
+		while (start) {
+
+			for (int i = 0; i < snake.getListSnakeSize(); i++) {
+				
+				if (randomRect.intersects(snake.getRectFromSnakeList(i))) {
+					food.setRandomFoofPosition();
+					randomRect.setLocation(food.getRandomX(), food.getRandomY());
+					isItIntersect = true;
+					break;
+				}
+			}
+
+			if (!isItIntersect) {
+				food.addFoodToTheList();
+				start = false;
+			}
+
+			isItIntersect = false;
+
+		}
+
+	}
+
+	public void setAmountAddedFood(int amount) {
+
+		if (food.getFoodListSize() == 0) {
+
+			for (int i = 0; i < amount; i++)
+				checkThePositionOfFoodAndSnakeAndAddFood();
+		}
+
 	}
 
 	public void startMovingRight() {
@@ -179,14 +221,32 @@ public class Board extends JPanel {
 
 			int x = snake.getXposition();
 			int y = snake.getYposition();
+			
+			if((snake.getXposition() < 25 && snake.getYposition() == 25) || (snake.getXposition() == 25 && snake.getYposition() < 25)) {
+				x += 30; y += 25;
+			}
+			
+			else if((snake.getXposition() < 25 && snake.getYposition() == 425) || (snake.getXposition() == 25 && snake.getYposition() > 425)) {
+				x += 25; y -= 34;
+			}
 
-			if (snake.getXposition() < 25)
+			else if((snake.getXposition() > 475 && snake.getYposition() == 25) || (snake.getXposition() == 475 && snake.getYposition() < 25)) {
+				x -= 25; y += 25;
+			}
+			
+			else if((snake.getXposition() > 475 && snake.getYposition() == 425) || (snake.getXposition() == 475 && snake.getYposition() > 425)) {
+				x -= 25; y -= 34;
+			}
+			
+			else if (snake.getXposition() < 25)
 				x += 30;
+			
 			else if (snake.getXposition() > 475)
 				x -= 25;
-
-			if (snake.getYposition() < 25)
-				y += 25;
+			
+			else if (snake.getYposition() < 25)
+				y += 25;						
+				
 			else if (snake.getYposition() > 425)
 				y -= 34;
 

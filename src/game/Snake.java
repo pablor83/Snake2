@@ -20,11 +20,6 @@ public class Snake {
 
 	private Random randomStartPosition = new Random();
 
-	Snake() {
-
-		setStartPosition();
-		addHeadRectList();
-	}
 
 	public void addHeadRectList() {
 

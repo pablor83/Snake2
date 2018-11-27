@@ -12,23 +12,11 @@ public class Food {
 	private List<Rectangle> foodList = new LinkedList<>();
 
 	private Random randomFoodPosition = new Random();
-
-	public void addFoodToTheList(int amount) {
-
-		int amountOfFood = amount;
-
-		if (foodList.size() == 0) {
-			for (int i = 0; i < amountOfFood; i++) {
-				setRandomFoofPosition();
-				foodList.add(new Rectangle(xFood, yFood, 25, 25));
-			}
-		}
-	}
-
-	public void setRandomFoofPosition() {
-
-		int[] x = new int[16];
-		int[] y = new int[16];
+	
+	int[] x = new int[16];
+	int[] y = new int[16];
+	
+	Food(){		
 
 		int snakeStep = 0;
 
@@ -40,18 +28,38 @@ public class Food {
 			y[i] = snakeStep;
 
 		}
+	}
 
+	
+
+	public void addFoodToTheList() {
+
+		foodList.add(new Rectangle(xFood, yFood, 25, 25));
+	}
+
+	public void setRandomFoofPosition() {
+		
 		int randomX = randomFoodPosition.nextInt(16);
-		int randomy = randomFoodPosition.nextInt(16);
+		int randomY = randomFoodPosition.nextInt(16);
 
 		xFood = x[randomX];
-		yFood = y[randomy];
+		yFood = y[randomY];
 
 	}
 
 	public List<Rectangle> getFoodList() {
 
 		return foodList;
+	}
+
+	public int getRandomX() {
+
+		return xFood;
+	}
+
+	public int getRandomY() {
+
+		return yFood;
 	}
 
 	public Rectangle getItemFromTheFoodList(int numberPositionFromTheFoodList) {

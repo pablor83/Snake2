@@ -15,6 +15,8 @@ public class MainWindow extends JFrame {
 	private ButtonPanel buttonPanel = new ButtonPanel(board, subtitles);
 
 	private boolean isSnakeBeenRemove = false;
+	private int setNumberOfFood = 1;
+	private int speed = 500;
 
 	MainWindow() {
 
@@ -119,17 +121,36 @@ public class MainWindow extends JFrame {
 
 				mainWindow.subtitles.setPoints(1);
 				mainWindow.board.snake().setSnakeLength(mainWindow.board.snake().getSnakeLength() + 1);
-				mainWindow.board.food().addFoodToTheList(3);
+				mainWindow.board.setAmountAddedFood(mainWindow.setNumberOfFood);
 			}
-			
-			
+
+			switch (mainWindow.subtitles.getPoints()) {
+
+			case (5):
+				mainWindow.setNumberOfFood = 2;
+				mainWindow.speed = 250;
+				mainWindow.subtitles.setLevels(2);
+				break;
+
+			case (10):
+				mainWindow.setNumberOfFood = 3;
+				mainWindow.subtitles.setLevels(3);
+				break;
+
+			case (15):
+				mainWindow.setNumberOfFood = 4;
+				mainWindow.speed = 150;
+				mainWindow.subtitles.setLevels(4);
+				break;
+
+			}
 
 			mainWindow.board.snake().constantSnakeLength();
 
 			mainWindow.repaint();
 
 			try {
-				Thread.sleep(250);
+				Thread.sleep(mainWindow.speed);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
