@@ -71,16 +71,13 @@ public class Subtitles extends JPanel {
 		springLayout.putConstraint(SpringLayout.NORTH, infoPause, 60, SpringLayout.NORTH, this);
 
 		springLayout.putConstraint(SpringLayout.NORTH, infoLives, 20, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.WEST, infoLives, 283, SpringLayout.WEST,
-				this);
+		springLayout.putConstraint(SpringLayout.WEST, infoLives, 283, SpringLayout.WEST, this);
 
 		springLayout.putConstraint(SpringLayout.NORTH, infoPoints, 45, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.WEST, infoPoints, 283, SpringLayout.WEST,
-				this);
+		springLayout.putConstraint(SpringLayout.WEST, infoPoints, 283, SpringLayout.WEST, this);
 
 		springLayout.putConstraint(SpringLayout.NORTH, infoLevel, 70, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.WEST, infoLevel, 283, SpringLayout.WEST,
-				this);
+		springLayout.putConstraint(SpringLayout.WEST, infoLevel, 283, SpringLayout.WEST, this);
 
 	}
 
@@ -100,11 +97,11 @@ public class Subtitles extends JPanel {
 		points += p;
 		infoPoints.setText("Punkty: " + points);
 	}
-	
+
 	public void setLevels(int i) {
-		
+
 		levels = i;
-		infoLevel.setText("Poziom: "+levels);
+		infoLevel.setText("Poziom: " + levels);
 	}
 
 	public int getLives() {

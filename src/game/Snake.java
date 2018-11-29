@@ -20,7 +20,6 @@ public class Snake {
 
 	private Random randomStartPosition = new Random();
 
-
 	public void addHeadRectList() {
 
 		listSnake.add(new Rectangle(x, y, 25, 25));
@@ -147,16 +146,20 @@ public class Snake {
 
 		char direction = '0';
 
-		if (!copmareYpositionFromSnakeList() && listSnake.get(listSnake.size() - 1).getX() > listSnake.get(listSnake.size() - 2).getX())
+		if (!copmareYpositionFromSnakeList()
+				&& listSnake.get(listSnake.size() - 1).getX() > listSnake.get(listSnake.size() - 2).getX())
 			direction = 'E';
 
-		else if (!copmareYpositionFromSnakeList() && listSnake.get(listSnake.size() - 1).getX() < listSnake.get(listSnake.size() - 2).getX())
+		else if (!copmareYpositionFromSnakeList()
+				&& listSnake.get(listSnake.size() - 1).getX() < listSnake.get(listSnake.size() - 2).getX())
 			direction = 'W';
 
-		else if (!copmareXpositionFromSnakeList() && listSnake.get(listSnake.size() - 1).getY() < listSnake.get(listSnake.size() - 2).getY())
+		else if (!copmareXpositionFromSnakeList()
+				&& listSnake.get(listSnake.size() - 1).getY() < listSnake.get(listSnake.size() - 2).getY())
 			direction = 'N';
 
-		else if (!copmareXpositionFromSnakeList() && listSnake.get(listSnake.size() - 1).getY() > listSnake.get(listSnake.size() - 2).getY())
+		else if (!copmareXpositionFromSnakeList()
+				&& listSnake.get(listSnake.size() - 1).getY() > listSnake.get(listSnake.size() - 2).getY())
 			direction = 'S';
 
 		return direction;

@@ -53,6 +53,7 @@ public class ButtonPanel extends JPanel {
 
 			board.stopDirections();
 			board.setGameOverSign(false);
+			board.setStopKillingSnakeAndCountdown(true);
 			board.snake().setSnakeLength(3);
 			subtitles.setStartLives(3);
 			board.snake().setColorSnake(0);
@@ -67,7 +68,9 @@ public class ButtonPanel extends JPanel {
 			board.snake().addHeadRectList();
 
 			board.food().removeItemFromTheFoodList(0);
-			board.setAmountAddedFood(1);;
+			board.setAmountAddedFood(1);
+			;
+
 		});
 	}
 

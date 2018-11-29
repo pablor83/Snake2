@@ -13,7 +13,6 @@ import java.util.Random;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
@@ -27,9 +26,14 @@ public class Board extends JPanel {
 	private boolean yUp = false;
 	private boolean yDown = false;
 
+	private boolean pause = false;
+
 	private boolean startCountdown = false;
+
+	private boolean stopKillingTheSnakeOrStopCountdown = false;
+
 	private boolean displayGameOver = false;
-	private int coutdownValue;
+	private int countdownValue;
 
 	Board() {
 
@@ -59,7 +63,7 @@ public class Board extends JPanel {
 		while (start) {
 
 			for (int i = 0; i < snake.getListSnakeSize(); i++) {
-				
+
 				if (randomRect.intersects(snake.getRectFromSnakeList(i))) {
 					food.setRandomFoofPosition();
 					randomRect.setLocation(food.getRandomX(), food.getRandomY());
@@ -87,6 +91,11 @@ public class Board extends JPanel {
 				checkThePositionOfFoodAndSnakeAndAddFood();
 		}
 
+	}
+
+	public void setStopKillingSnakeAndCountdown(boolean stop) {
+
+		stopKillingTheSnakeOrStopCountdown = stop;
 	}
 
 	public void startMovingRight() {
@@ -126,9 +135,13 @@ public class Board extends JPanel {
 
 		int listSnakeSize = snake.getListSnakeSize();
 
-		for (int i = 0; i < listSnakeSize; i++) {
+		while (listSnakeSize > 0 && !stopKillingTheSnakeOrStopCountdown) {
 
-			snake.killSnake();
+			if (!pause) {
+				snake.killSnake();
+				listSnakeSize--;
+			}
+
 			m.repaint();
 
 			try {
@@ -143,18 +156,40 @@ public class Board extends JPanel {
 
 	public void setCountdown(MainWindow m, int displayNumerOfSeconds, int millisecond) {
 
-		for (int i = displayNumerOfSeconds; i > 0; i--) {
+		int i = displayNumerOfSeconds;
 
-			coutdownValue = i;
+		while (i > 0 && !stopKillingTheSnakeOrStopCountdown) {
+
+			if (pause) {
+				countdownValue = i;
+			}
+
+			else if (!pause) {
+
+				countdownValue = i;
+				i--;
+			}
+
 			m.repaint();
 
 			try {
-				Thread.sleep(millisecond);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
 		}
+	}
+
+	public boolean getStatusStopKillingSnakeAndCountdown() {
+
+		return stopKillingTheSnakeOrStopCountdown;
+	}
+
+	public boolean getPauseStatus() {
+
+		return pause;
 	}
 
 	public boolean getCoutdownStatus() {
@@ -170,27 +205,31 @@ public class Board extends JPanel {
 	public void setRandomMoveDirectionOfSnake() {
 
 		Random randomMove = new Random();
+		
+		if(!stopKillingTheSnakeOrStopCountdown) {
+			
+			snake.setStartPosition();
+			snake.addHeadRectList();
+			switch (randomMove.nextInt(4) + 1) {
 
-		snake.setStartPosition();
-		snake.addHeadRectList();
-		switch (randomMove.nextInt(4) + 1) {
+			case 1:
+				xRight = true;
+				break;
 
-		case 1:
-			xRight = true;
-			break;
+			case 2:
+				xLeft = true;
+				break;
 
-		case 2:
-			xLeft = true;
-			break;
+			case 3:
+				yUp = true;
+				break;
 
-		case 3:
-			yUp = true;
-			break;
-
-		case 4:
-			yDown = true;
-			break;
+			case 4:
+				yDown = true;
+				break;
+			}
 		}
+		
 
 	}
 
@@ -221,32 +260,40 @@ public class Board extends JPanel {
 
 			int x = snake.getXposition();
 			int y = snake.getYposition();
-			
-			if((snake.getXposition() < 25 && snake.getYposition() == 25) || (snake.getXposition() == 25 && snake.getYposition() < 25)) {
-				x += 30; y += 25;
-			}
-			
-			else if((snake.getXposition() < 25 && snake.getYposition() == 425) || (snake.getXposition() == 25 && snake.getYposition() > 425)) {
-				x += 25; y -= 34;
+
+			if ((snake.getXposition() < 25 && snake.getYposition() == 25)
+					|| (snake.getXposition() == 25 && snake.getYposition() < 25)) {
+				x += 30;
+				y += 25;
 			}
 
-			else if((snake.getXposition() > 475 && snake.getYposition() == 25) || (snake.getXposition() == 475 && snake.getYposition() < 25)) {
-				x -= 25; y += 25;
+			else if ((snake.getXposition() < 25 && snake.getYposition() == 425)
+					|| (snake.getXposition() == 25 && snake.getYposition() > 425)) {
+				x += 25;
+				y -= 34;
 			}
-			
-			else if((snake.getXposition() > 475 && snake.getYposition() == 425) || (snake.getXposition() == 475 && snake.getYposition() > 425)) {
-				x -= 25; y -= 34;
+
+			else if ((snake.getXposition() > 475 && snake.getYposition() == 25)
+					|| (snake.getXposition() == 475 && snake.getYposition() < 25)) {
+				x -= 25;
+				y += 25;
 			}
-			
+
+			else if ((snake.getXposition() > 475 && snake.getYposition() == 425)
+					|| (snake.getXposition() == 475 && snake.getYposition() > 425)) {
+				x -= 25;
+				y -= 34;
+			}
+
 			else if (snake.getXposition() < 25)
 				x += 30;
-			
+
 			else if (snake.getXposition() > 475)
 				x -= 25;
-			
+
 			else if (snake.getYposition() < 25)
-				y += 25;						
-				
+				y += 25;
+
 			else if (snake.getYposition() > 425)
 				y -= 34;
 
@@ -276,11 +323,18 @@ public class Board extends JPanel {
 			g2d.fill(rectFoodList);
 		}
 
-		if (startCountdown == true) {
+		if (pause) {
 
 			g2d.setColor(Color.red);
 			g2d.setFont(new Font("TimesRoman", Font.BOLD, 20));
-			g2d.drawString("Odrodzenie za: " + coutdownValue, 180, 220);
+			g2d.drawString("Pauza", 220, 190);
+		}
+
+		if (startCountdown) {
+
+			g2d.setColor(Color.red);
+			g2d.setFont(new Font("TimesRoman", Font.BOLD, 20));
+			g2d.drawString("Odrodzenie za: " + countdownValue, 180, 220);
 		}
 
 		if (displayGameOver) {
@@ -372,6 +426,11 @@ public class Board extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+				if (pause)
+					pause = false;
+
+				else if (!pause)
+					pause = true;
 			}
 		};
 
