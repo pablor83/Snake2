@@ -13,6 +13,10 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 
+import com.sun.corba.se.spi.orbutil.fsm.Action;
+
+import sun.rmi.runtime.NewThreadAction;
+
 public class ButtonPanel extends JPanel {
 
 	private JButton restartButton;
@@ -27,6 +31,7 @@ public class ButtonPanel extends JPanel {
 
 		addRestartButton();
 		addRestartButtonLabelInfoShorcut();
+		addRestartAndPauseKeys();
 		initLayout();
 	}
 
@@ -54,6 +59,7 @@ public class ButtonPanel extends JPanel {
 			board.stopDirections();
 			board.setGameOverSign(false);
 			board.setStopKillingSnakeAndCountdown(true);
+			board.setPauseFlag(false);
 			board.snake().setSnakeLength(3);
 			subtitles.setStartLives(3);
 			board.snake().setColorSnake(0);
@@ -80,6 +86,43 @@ public class ButtonPanel extends JPanel {
 		restartButtonLabelInfoShorcut.setForeground(Color.BLACK);
 		restartButtonLabelInfoShorcut.setFont(new Font("TimesRoman", Font.BOLD, 12));
 		add(restartButtonLabelInfoShorcut);
+	}
+
+	private void addRestartAndPauseKeys() {
+
+		InputMap inputMap = this.getInputMap(WHEN_IN_FOCUSED_WINDOW);
+		ActionMap actionMap = new ActionMap();
+		this.setActionMap(actionMap);
+
+		AbstractAction restartShortcut = new AbstractAction() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+				restartButton.doClick();
+			}
+		};
+
+		AbstractAction pause = new AbstractAction() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				if (board.getPauseStatus())
+					board.setPauseFlag(false);
+
+				else if (!board.getPauseStatus())
+					board.setPauseFlag(true);
+
+			}
+		};
+
+		inputMap.put(KeyStroke.getKeyStroke("ctrl R"), "ctrlR");
+		inputMap.put(KeyStroke.getKeyStroke("P"), "p");
+
+		actionMap.put("ctrlR", restartShortcut);
+		actionMap.put("p", pause);
+
 	}
 
 }

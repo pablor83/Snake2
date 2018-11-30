@@ -126,11 +126,6 @@ public class Board extends JPanel {
 		startCountdown = b;
 	}
 
-//	public void setCountdownValue(int i) {
-//
-//		coutdownValue = i;
-//	}
-
 	public void setRemoveSnake(MainWindow m, int setSpeedRemovingSnake) {
 
 		int listSnakeSize = snake.getListSnakeSize();
@@ -181,6 +176,11 @@ public class Board extends JPanel {
 
 		}
 	}
+	
+	public void setPauseFlag(boolean pause) {
+		
+		this.pause = pause;
+	}
 
 	public boolean getStatusStopKillingSnakeAndCountdown() {
 
@@ -205,9 +205,9 @@ public class Board extends JPanel {
 	public void setRandomMoveDirectionOfSnake() {
 
 		Random randomMove = new Random();
-		
-		if(!stopKillingTheSnakeOrStopCountdown) {
-			
+
+		if (!stopKillingTheSnakeOrStopCountdown) {
+
 			snake.setStartPosition();
 			snake.addHeadRectList();
 			switch (randomMove.nextInt(4) + 1) {
@@ -229,7 +229,6 @@ public class Board extends JPanel {
 				break;
 			}
 		}
-		
 
 	}
 
@@ -253,8 +252,6 @@ public class Board extends JPanel {
 	public void paint(Graphics g) {
 
 		Graphics2D g2d = (Graphics2D) g;
-
-		g2d.drawString("X: " + snake.getXposition() + " Y: " + snake.getYposition(), 50, 50);
 
 		if (snake.snakeCollisionDetection() || snake.getListSnakeSize() == 0) {
 
@@ -352,11 +349,6 @@ public class Board extends JPanel {
 		g2d.setStroke(new BasicStroke(4));
 		g2d.drawRect(getWidth() / 2 - 240, getHeight() / 2 - 218, 481, 431);
 
-//		g2d.drawLine(getWidth() / 2 + 241, getHeight() / 2 - 214, getWidth() / 2 + 241, getHeight() / 2 + 209);
-//		g2d.drawLine(getWidth() / 2 - 240, getHeight() / 2 - 214, getWidth() / 2 - 240, getHeight() / 2 + 209);
-//		g2d.drawLine(getWidth() / 2 - 236, getHeight() / 2 - 218, getWidth() / 2 + 237, getHeight() / 2 - 218);
-//		g2d.drawLine(getWidth() / 2 - 236, getHeight() / 2 + 213, getWidth() / 2 + 237, getHeight() / 2 + 213);
-
 	}
 
 	public void setRightDirection(boolean b) {
@@ -412,27 +404,6 @@ public class Board extends JPanel {
 		ActionMap actionMap = new ActionMap();
 
 		this.setActionMap(actionMap);
-
-		AbstractAction actionRestart = new AbstractAction() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-
-			}
-		};
-
-		AbstractAction actionPauseGame = new AbstractAction() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				if (pause)
-					pause = false;
-
-				else if (!pause)
-					pause = true;
-			}
-		};
 
 		AbstractAction actionRight = new AbstractAction() {
 
@@ -499,10 +470,8 @@ public class Board extends JPanel {
 		actionMap.put("move_Left", actionLeft);
 		actionMap.put("move_Up", actionUp);
 		actionMap.put("move_Down", actionDown);
-		actionMap.put("pause", actionPauseGame);
-		actionMap.put("restart", actionRestart);
 
-		InputMap inputMap = this.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
+		InputMap inputMap = this.getInputMap(WHEN_IN_FOCUSED_WINDOW);
 		inputMap.put(KeyStroke.getKeyStroke("RIGHT"), "move_Right");
 		inputMap.put(KeyStroke.getKeyStroke("LEFT"), "move_Left");
 		inputMap.put(KeyStroke.getKeyStroke("UP"), "move_Up");
