@@ -13,10 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SpringLayout;
 
-import com.sun.corba.se.spi.orbutil.fsm.Action;
-
-import sun.rmi.runtime.NewThreadAction;
-
 public class ButtonPanel extends JPanel {
 
 	private JButton restartButton;
@@ -62,6 +58,8 @@ public class ButtonPanel extends JPanel {
 			board.setPauseFlag(false);
 			board.snake().setSnakeLength(3);
 			subtitles.setStartLives(3);
+			subtitles.setStartPoints(0);
+			subtitles.setLevels(1);
 			board.snake().setColorSnake(0);
 
 			if (board.snake().getListSnakeSize() > 0)

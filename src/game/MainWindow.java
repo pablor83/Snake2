@@ -14,7 +14,7 @@ public class MainWindow extends JFrame {
 
 	private boolean isSnakeBeenRemove = false;
 	private int setNumberOfFood = 1;
-	private int speed = 500;
+	private int speed;
 
 	MainWindow() {
 
@@ -74,7 +74,9 @@ public class MainWindow extends JFrame {
 				mainWindow.isSnakeBeenRemove = false;
 				mainWindow.board.setStopKillingSnakeAndCountdown(false);
 			}
-				
+			
+			if(mainWindow.subtitles.getPoints() == 0 && mainWindow.board.snake().getListSnakeSize() == 1)
+				mainWindow.speed = 500;
 			
 			if (!mainWindow.board.getPauseStatus()) {
 

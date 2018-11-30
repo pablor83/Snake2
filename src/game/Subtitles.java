@@ -90,11 +90,18 @@ public class Subtitles extends JPanel {
 	public void setStartLives(int i) {
 
 		lives = i;
+		infoLives.setText("¯ycie: " + lives);
 	}
 
 	public void setPoints(int p) {
 
 		points += p;
+		infoPoints.setText("Punkty: " + points);
+	}
+	
+	public void setStartPoints(int p) {
+
+		points = p;
 		infoPoints.setText("Punkty: " + points);
 	}
 
