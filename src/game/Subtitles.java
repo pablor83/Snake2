@@ -98,7 +98,7 @@ public class Subtitles extends JPanel {
 		points += p;
 		infoPoints.setText("Punkty: " + points);
 	}
-	
+
 	public void setStartPoints(int p) {
 
 		points = p;

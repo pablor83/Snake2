@@ -12,11 +12,11 @@ public class Food {
 	private List<Rectangle> foodList = new LinkedList<>();
 
 	private Random randomFoodPosition = new Random();
-	
+
 	int[] x = new int[16];
 	int[] y = new int[16];
-	
-	Food(){		
+
+	Food() {
 
 		int snakeStep = 0;
 
@@ -30,15 +30,13 @@ public class Food {
 		}
 	}
 
-	
-
 	public void addFoodToTheList() {
 
 		foodList.add(new Rectangle(xFood, yFood, 25, 25));
 	}
 
 	public void setRandomFoofPosition() {
-		
+
 		int randomX = randomFoodPosition.nextInt(16);
 		int randomY = randomFoodPosition.nextInt(16);
 

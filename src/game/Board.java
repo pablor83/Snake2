@@ -176,9 +176,9 @@ public class Board extends JPanel {
 
 		}
 	}
-	
+
 	public void setPauseFlag(boolean pause) {
-		
+
 		this.pause = pause;
 	}
 

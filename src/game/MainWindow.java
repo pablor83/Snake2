@@ -70,14 +70,15 @@ public class MainWindow extends JFrame {
 
 		while (true) {
 
-			if (mainWindow.board.snake().getListSnakeSize() == 1 && mainWindow.board.getStatusStopKillingSnakeAndCountdown()) {				
+			if (mainWindow.board.snake().getListSnakeSize() == 1
+					&& mainWindow.board.getStatusStopKillingSnakeAndCountdown()) {
 				mainWindow.isSnakeBeenRemove = false;
 				mainWindow.board.setStopKillingSnakeAndCountdown(false);
 			}
-			
-			if(mainWindow.subtitles.getPoints() == 0 && mainWindow.board.snake().getListSnakeSize() == 1)
+
+			if (mainWindow.subtitles.getPoints() == 0 && mainWindow.board.snake().getListSnakeSize() == 1)
 				mainWindow.speed = 500;
-			
+
 			if (!mainWindow.board.getPauseStatus()) {
 
 				if (mainWindow.board.isItRightDirectionIsOn() && mainWindow.board.snake().getListSnakeSize() > 0)
@@ -92,6 +93,8 @@ public class MainWindow extends JFrame {
 				else if (mainWindow.board.isItDownDirectionIsOn() && mainWindow.board.snake().getListSnakeSize() > 0)
 					mainWindow.board.startMovingDown();
 
+				mainWindow.board.snake().constantSnakeLength();
+
 				if (mainWindow.board.snake().snakeCollisionDetection() || mainWindow.isSnakeBeenRemove) {
 
 					int keepSnakeLength = mainWindow.board.snake().getSnakeLength();
@@ -104,7 +107,7 @@ public class MainWindow extends JFrame {
 						mainWindow.board.stopDirections();
 						mainWindow.isSnakeBeenRemove = true;
 
-						mainWindow.board.setRemoveSnake(mainWindow, 250);
+						mainWindow.board.setRemoveSnake(mainWindow, 150);
 
 						mainWindow.board.setStartCountdown(true);
 						mainWindow.board.setCountdown(mainWindow, 3, 1000);
@@ -153,11 +156,8 @@ public class MainWindow extends JFrame {
 
 				}
 
-				mainWindow.board.snake().constantSnakeLength();
-
 				mainWindow.repaint();
-				
-				
+
 			}
 
 			else if (mainWindow.board.getPauseStatus())
