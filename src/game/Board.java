@@ -19,7 +19,7 @@ import javax.swing.KeyStroke;
 public class Board extends JPanel {
 
 	private Snake snake = new Snake();
-	private Food food = new Food();
+	private FoodGenerator foodGenerator = new FoodGenerator();
 
 	private boolean xRight = false;
 	private boolean xLeft = false;
@@ -48,32 +48,30 @@ public class Board extends JPanel {
 		return snake;
 	}
 
-	public Food food() {
+	public FoodGenerator food() {
 
-		return food;
+		return foodGenerator;
 	}
 
 	private void checkThePositionOfFoodAndSnakeAndAddFood() {
 
 		boolean start = true;
 		boolean isItIntersect = false;
-		food.setRandomFoofPosition();
-		Rectangle randomRect = new Rectangle(food.getRandomX(), food.getRandomY(), 25, 25);
+		Rectangle newFood = new Rectangle(foodGenerator.generateFoodOnRandomPosition());
 
 		while (start) {
 
 			for (int i = 0; i < snake.getListSnakeSize(); i++) {
 
-				if (randomRect.intersects(snake.getRectFromSnakeList(i))) {
-					food.setRandomFoofPosition();
-					randomRect.setLocation(food.getRandomX(), food.getRandomY());
+				if (foodGenerator.generateFoodOnRandomPosition().intersects(snake.getRectFromSnakeList(i))) {
+					newFood = new Rectangle(foodGenerator.generateFoodOnRandomPosition());
 					isItIntersect = true;
 					break;
 				}
 			}
 
 			if (!isItIntersect) {
-				food.addFoodToTheList();
+				foodGenerator.addFoodToTheList();
 				start = false;
 			}
 
@@ -85,7 +83,7 @@ public class Board extends JPanel {
 
 	public void setAmountAddedFood(int amount) {
 
-		if (food.getFoodListSize() == 0) {
+		if (foodGenerator.getFoodListSize() == 0) {
 
 			for (int i = 0; i < amount; i++)
 				checkThePositionOfFoodAndSnakeAndAddFood();
@@ -236,11 +234,11 @@ public class Board extends JPanel {
 
 		boolean foodEaten = false;
 
-		for (int i = 0; i < food.getFoodListSize(); i++) {
-			if (snake.getHeadRectCoordinates().intersects(food.getItemFromTheFoodList(i))) {
+		for (int i = 0; i < foodGenerator.getFoodListSize(); i++) {
+			if (snake.getHeadRectCoordinates().intersects(foodGenerator.getItemFromTheFoodList(i))) {
 
 				foodEaten = true;
-				food.removeItemFromTheFoodList(i);
+				foodGenerator.removeItemFromTheFoodList(i);
 
 			}
 
@@ -314,7 +312,7 @@ public class Board extends JPanel {
 
 		}
 
-		for (Rectangle rectFoodList : food.getFoodList()) {
+		for (Rectangle rectFoodList : foodGenerator.getFoodList()) {
 
 			g2d.setColor(new Color(200300300));
 			g2d.fill(rectFoodList);

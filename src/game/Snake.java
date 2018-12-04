@@ -18,8 +18,6 @@ public class Snake {
 
 	private List<Rectangle> listSnake = new LinkedList<>();
 
-	private Random randomStartPosition = new Random();
-
 	public void addHeadRectList() {
 
 		listSnake.add(new Rectangle(x, y, 25, 25));
@@ -28,25 +26,13 @@ public class Snake {
 
 	public void setStartPosition() {
 
-		int[] x = new int[16];
-		int[] y = new int[16];
-
-		int snakeStep = 25;
-
-		for (int i = 0; i < 16; i++) {
-
-			snakeStep += 25;
-
-			x[i] = snakeStep;
-			y[i] = snakeStep;
-
-		}
+		Random randomStartPosition = new Random();
 
 		int randomX = randomStartPosition.nextInt(16);
-		int randomy = randomStartPosition.nextInt(16);
+		int randomY = randomStartPosition.nextInt(16);
 
-		this.x = x[randomX];
-		this.y = y[randomy];
+		x = randomX * 25;
+		y = randomY * 25;
 
 	}
 
