@@ -43,12 +43,12 @@ public class Board extends JPanel {
 		checkThePositionOfFoodAndSnakeAndAddFood();
 	}
 
-	public Snake snake() {
+	public Snake getSnake() {
 
 		return snake;
 	}
 
-	public FoodGenerator food() {
+	public FoodGenerator getFoodGenerator() {
 
 		return foodGenerator;
 	}

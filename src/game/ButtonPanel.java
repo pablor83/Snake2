@@ -56,22 +56,22 @@ public class ButtonPanel extends JPanel {
 			board.setGameOverSign(false);
 			board.setStopKillingSnakeAndCountdown(true);
 			board.setPauseFlag(false);
-			board.snake().setSnakeLength(3);
+			board.getSnake().setSnakeLength(3);
 			subtitles.setStartLives(3);
 			subtitles.setStartPoints(0);
 			subtitles.setLevels(1);
-			board.snake().setColorSnake(0);
+			board.getSnake().setColorSnake(0);
 
-			if (board.snake().getListSnakeSize() > 0)
-				board.snake().cleanSnakeList();
+			if (board.getSnake().getListSnakeSize() > 0)
+				board.getSnake().cleanSnakeList();
 
 			if (board.getCoutdownStatus())
 				board.setStartCountdown(false);
 
-			board.snake().setStartPosition();
-			board.snake().addHeadRectList();
+			board.getSnake().setStartPosition();
+			board.getSnake().addHeadRectList();
 
-			board.food().removeItemFromTheFoodList(0);
+			board.getFoodGenerator().removeItemFromTheFoodList(0);
 			board.setAmountAddedFood(1);
 			;
 
