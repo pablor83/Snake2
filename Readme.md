@@ -20,7 +20,7 @@ In the game, we move the snake using the arrows on the keyboard and eat fruit.
 
 ## Setup
 Compile `javac game/*.java`  
-Create `jar cfe Snake2.jar game.MainWindow .`  
+Create jar file `jar cfe Snake2.jar game.MainWindow .`  
 Run `java -jar Snake2.jar`
 
 ## Features
