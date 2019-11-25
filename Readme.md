@@ -16,7 +16,7 @@ Snake game is a JAVA app.
 In the game, we move the snake using the arrows on the keyboard and eat fruit.
 
 ## Technologies
-* JAVA
+* JAVA 1.8
 
 ## Setup
 Compile `javac game/*.java`  
