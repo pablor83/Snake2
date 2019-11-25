@@ -28,8 +28,8 @@ public class Snake {
 
 		Random randomStartPosition = new Random();
 
-		int randomX = randomStartPosition.nextInt(16);
-		int randomY = randomStartPosition.nextInt(16);
+		int randomX = randomStartPosition.nextInt(15)+2;
+		int randomY = randomStartPosition.nextInt(15)+2;
 
 		x = randomX * 25;
 		y = randomY * 25;

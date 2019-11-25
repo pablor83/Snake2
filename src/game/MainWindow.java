@@ -70,36 +70,36 @@ public class MainWindow extends JFrame {
 
 		while (true) {
 
-			if (mainWindow.board.snake().getListSnakeSize() == 1
+			if (mainWindow.board.getSnake().getListSnakeSize() == 1
 					&& mainWindow.board.getStatusStopKillingSnakeAndCountdown()) {
 				mainWindow.isSnakeBeenRemove = false;
 				mainWindow.board.setStopKillingSnakeAndCountdown(false);
 			}
 
-			if (mainWindow.subtitles.getPoints() == 0 && mainWindow.board.snake().getListSnakeSize() == 1)
+			if (mainWindow.subtitles.getPoints() == 0 && mainWindow.board.getSnake().getListSnakeSize() == 1)
 				mainWindow.speed = 500;
 
 			if (!mainWindow.board.getPauseStatus()) {
 
-				if (mainWindow.board.isItRightDirectionIsOn() && mainWindow.board.snake().getListSnakeSize() > 0)
+				if (mainWindow.board.isItRightDirectionIsOn() && mainWindow.board.getSnake().getListSnakeSize() > 0)
 					mainWindow.board.startMovingRight();
 
-				else if (mainWindow.board.isItLeftDirectionIsOn() && mainWindow.board.snake().getListSnakeSize() > 0)
+				else if (mainWindow.board.isItLeftDirectionIsOn() && mainWindow.board.getSnake().getListSnakeSize() > 0)
 					mainWindow.board.startMovingLeft();
 
-				else if (mainWindow.board.isItUpDirectionIsOn() && mainWindow.board.snake().getListSnakeSize() > 0)
+				else if (mainWindow.board.isItUpDirectionIsOn() && mainWindow.board.getSnake().getListSnakeSize() > 0)
 					mainWindow.board.startMovingUp();
 
-				else if (mainWindow.board.isItDownDirectionIsOn() && mainWindow.board.snake().getListSnakeSize() > 0)
+				else if (mainWindow.board.isItDownDirectionIsOn() && mainWindow.board.getSnake().getListSnakeSize() > 0)
 					mainWindow.board.startMovingDown();
 
-				mainWindow.board.snake().constantSnakeLength();
+				mainWindow.board.getSnake().constantSnakeLength();
 
-				if (mainWindow.board.snake().snakeCollisionDetection() || mainWindow.isSnakeBeenRemove) {
+				if (mainWindow.board.getSnake().snakeCollisionDetection() || mainWindow.isSnakeBeenRemove) {
 
-					int keepSnakeLength = mainWindow.board.snake().getSnakeLength();
+					int keepSnakeLength = mainWindow.board.getSnake().getSnakeLength();
 
-					mainWindow.board.snake().setColorSnake(2);
+					mainWindow.board.getSnake().setColorSnake(2);
 					mainWindow.subtitles.setLives(1);
 
 					if (mainWindow.subtitles.getLives() > 0) {
@@ -113,11 +113,11 @@ public class MainWindow extends JFrame {
 						mainWindow.board.setCountdown(mainWindow, 3, 1000);
 						mainWindow.board.setStartCountdown(false);
 
-						if (mainWindow.board.snake().getListSnakeSize() == 0)
+						if (mainWindow.board.getSnake().getListSnakeSize() == 0)
 							mainWindow.isSnakeBeenRemove = false;
 
-						mainWindow.board.snake().setSnakeLength(keepSnakeLength);
-						mainWindow.board.snake().setColorSnake(0);
+						mainWindow.board.getSnake().setSnakeLength(keepSnakeLength);
+						mainWindow.board.getSnake().setColorSnake(0);
 						mainWindow.board.setRandomMoveDirectionOfSnake();
 					} else {
 
@@ -131,7 +131,7 @@ public class MainWindow extends JFrame {
 				if (mainWindow.board.isItFoodEaten()) {
 
 					mainWindow.subtitles.setPoints(1);
-					mainWindow.board.snake().setSnakeLength(mainWindow.board.snake().getSnakeLength() + 1);
+					mainWindow.board.getSnake().setSnakeLength(mainWindow.board.getSnake().getSnakeLength() + 1);
 					mainWindow.board.setAmountAddedFood(mainWindow.setNumberOfFood);
 				}
 
