@@ -2,7 +2,7 @@
 
 >A simple Snake game.
 
-![Example view] (https://raw.githubusercontent.com/pablor83/Snake2/master/Snake2.jpg)
+![Example view](https://raw.githubusercontent.com/pablor83/Snake2/master/Snake2.jpg)
 
 ## Table of contents
 * [General info](#general-info)
